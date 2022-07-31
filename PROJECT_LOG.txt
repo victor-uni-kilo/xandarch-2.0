@@ -1,0 +1,3 @@
+models> not working
+services> not working
+mongoDB - GENERALY NOT WORKING: types are messy and debuging is slow  - painfull technonoly

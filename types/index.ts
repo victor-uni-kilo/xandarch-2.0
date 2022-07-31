@@ -1,4 +1,4 @@
-export type PAGE_LINK = {
-  url: string; 
+export interface IPagesMap {
   text: string;
-};
+  href: string;
+}

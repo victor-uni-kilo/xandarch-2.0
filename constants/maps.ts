@@ -1,14 +1,14 @@
 export const PAGE_LINKS = [
-  { 
-    url: '/', 
-    text: 'about'
+  {
+    href: "/",
+    text: "about",
   },
-  { 
-    url: '/projects', 
-    text: 'projects'
+  {
+    href: "/projects",
+    text: "projects",
   },
-  { 
-    url: '/photography', 
-    text: 'photography'
+  {
+    href: "/photography",
+    text: "photography",
   },
 ];
