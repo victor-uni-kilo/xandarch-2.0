@@ -1,0 +1,9 @@
+@use 'sass:map';
+@use 'styles/golden-ratio' as *;
+@use 'styles/variables' as *;
+
+@mixin breakpoint($size) {
+  @media (min-width: map.get($breakpoints, $size)) {
+    @content;
+  }
+}

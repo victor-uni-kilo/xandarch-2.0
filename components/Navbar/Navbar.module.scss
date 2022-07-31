@@ -1,0 +1,11 @@
+@use 'sass:map';
+@use 'styles/variables' as *;
+// @use 'styles/mixins' as *;
+@use 'styles/golden-ratio' as *;
+
+.navbar {
+  grid-column: 1 / 2;
+  text-align: right;
+  padding-right: map.get($size-modules, '2');
+  background-color: aqua;
+}

@@ -1,0 +1,68 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:list';
+@use 'styles/golden-ratio' as au;
+
+// ----COLORS----
+$color-primary: #2928a8;
+$color-secondary: #34b4f3;
+$color-tetriary: #2b71ed;
+$color-danger: rgb(250, 45, 73);
+$color-white: #fff;
+$color-light-gray: #f6f6f6;
+$color-dark: #030321;
+
+$size-list: ('xs','sm','md','lg','xl','xxl');
+
+// ----BREAKPOINTS----
+$breakpoints: (
+  'xs': '0px',
+  'sm': '320px', 
+  'md': '701px', 
+  'lg': '1201px', 
+  'xl': '1441px', 
+  'xxl': '1801px' 
+);
+
+// ----GRIDS----
+$global-column-ratios: (
+  'xs': (4, 0, 4),
+  'sm': (4, 0, 4), 
+  'md': (2, 0, 5), 
+  'lg': (1, 0, 0, 4), 
+  'xl': (2, 0, 0, 4), 
+  'xxl': (2, 0, 0, 5)   
+);
+
+// ---- MAP GENERATOR FUNCTION ----
+// $grid-templates: ();
+
+// @mixin create-map($size, $prop) {
+//   $grid-templates: map.merge(
+//     $grid-templates,
+//     (
+//       $size: $prop,
+//     )
+//   ) !global;
+// }
+
+// ---- SIZING ----
+$size-modules: ();
+
+@for $index from 0 through -6 {
+  $size-modules: map.merge(
+    $size-modules,
+    (
+      #{math.abs($index)}: math.div(math.round(au.goldSize(10rem, $index)),10),
+    )
+  ) !global;
+}
+
+
+// ----Z-DEPTH----
+$z-depth: (
+  'background': -10,
+  'base': 0,
+  'foreground': 10,
+  'pop-up': 20 
+);

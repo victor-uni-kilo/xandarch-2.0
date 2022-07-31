@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/golden-ratio' as *;
+
+.gridLines {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  z-index: map.get($z-depth, 'background');
+  
+  & > div {
+    border-right: 1px solid blue;
+  }
+
+  & > div:last-child {
+    display: none;
+  }
+
+  @each $size in $size-list {
+    @include breakpoint($size) {
+      grid-template-columns: goldGridColumns(100vw, map.get($global-column-ratios, $size));
+
+      & > div:last-child {
+        @if $size == 'lg' {
+          display: block;
+        }
+      }
+    }
+  }
+}

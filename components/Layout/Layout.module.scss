@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/golden-ratio' as *;
+
+.wrapper {
+  position: relative;
+  width: 100vw;
+  display:grid;
+  
+  @each $size in $size-list {
+    @include breakpoint($size) {
+      grid-template-columns: goldGridColumns(100vw, map.get($global-column-ratios, $size));
+    }
+  }
+}
+
+

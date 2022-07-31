@@ -1,0 +1,42 @@
+@use 'sass:math';
+@use 'sass:string';
+@use 'sass:list';
+
+$phi: 1.618;
+
+// golden ratio scaling
+@function goldSize($basis, $level) {
+  @if $level < 0 {
+    @return $basis * math.pow($phi, math.abs($level));
+  } @else {
+    @return math.div($basis, math.pow($phi, $level));
+  }
+}
+
+// chained golden ratio scaling
+@function goldChain($basis, $levels...) {
+  $result: 0;
+  @each $level in $levels {
+    $result: $result + goldSize($basis, $level);
+  }
+  @return $result;
+}
+
+// use the width of container and ratio map to create grid columns
+// asign to grid-template-columns
+@function goldGridColumns($length, $levels) {
+  $ratioSum: 0;
+  @each $level in $levels {
+    $ratioSum: $ratioSum + goldSize(1, $level);
+  }
+  
+  $ratioCoefficient: math.div($length, $ratioSum);
+  $columnWidthList: ();
+  
+  @each $level in $levels {
+    $columnWidth: $ratioCoefficient * goldSize(1, $level);
+    $columnWidthList: append($columnWidthList, $columnWidth, $separator: space);
+  }
+
+  @return $columnWidthList;
+}
