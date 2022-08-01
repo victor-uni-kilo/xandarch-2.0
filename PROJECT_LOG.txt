@@ -1,3 +1,6 @@
-models> not working
-services> not working
+A. next-auth > authentication, which provider?
+
+B. How to upload and store images?
+1. models> not active
+2. services> not active
 mongoDB - GENERALY NOT WORKING: types are messy and debuging is slow  - painfull technonoly
