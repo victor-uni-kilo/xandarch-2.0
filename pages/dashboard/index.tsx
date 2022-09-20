@@ -27,6 +27,7 @@ const Dashboard: NextPage = () => {
   return (
     <>
       <h1 className={styles.color}>Hello from Dashboard</h1>
+      {/* <form action="" method="post"></form> */}
     </>
   );
 };

@@ -1,11 +1,56 @@
-@use 'sass:map';
-@use 'styles/variables' as *;
-// @use 'styles/mixins' as *;
-@use 'styles/golden-ratio' as *;
+@use "sass:map";
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+@use "styles/golden-ratio" as *;
+
+$comp-z-depth: map.get($z-depth, "foreground");
 
 .navbar {
+  position: fixed;
+  display: grid;
+  justify-items: end;
+  z-index: $comp-z-depth;
+
+  @each $size in $size-list {
+    @include breakpoint($size) {
+      grid-template-columns: goldGridColumns(100vw, map.get($global-column-ratios, $size));
+    }
+  }
+
+  background-color: hsla(160, 100%, 75%, 0.205);
+}
+
+// MAIN MEMBERS
+.accesibilityWidget {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: red;
+  z-index: $comp-z-depth + 1;
+}
+
+.navContainer {
   grid-column: 1 / 2;
   text-align: right;
-  padding-right: map.get($size-modules, '2');
+  padding-right: map.get($size-modules, "2");
   background-color: aqua;
+}
+
+.navMenu {
+  grid-column: 2 / 3;
+  display: none;
+}
+
+.hamburger {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  & > span {
+    width: 100%;
+    height: 25%;
+    background-color: black;
+  }
 }

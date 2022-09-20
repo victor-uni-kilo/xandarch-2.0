@@ -36,7 +36,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
 
       <div className={styles.wrapper}>
         <Navbar PAGE_LINKS={PAGE_LINKS} currentRoute={currentRoute} />
-        <main>{children}</main>
+        <main className={styles.main}>{children}</main>
         <GridLines />
       </div>
     </>

@@ -19,9 +19,16 @@
       "@constants/*": ["constants/*"],
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"],
-      "@svg/*": ["public/svg/*"]
+      "@svg/*": ["public/svg/*"],
+      "@utils/*": ["utils/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "models/projectSchema.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "models/projectSchema.js",
+    "pages/projectsData.jsx"
+  ],
   "exclude": ["node_modules"]
 }
