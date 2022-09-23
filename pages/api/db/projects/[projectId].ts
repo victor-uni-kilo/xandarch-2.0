@@ -42,12 +42,13 @@ const singleProjectHandler = async (req: NextApiRequest, res: NextApiResponse) =
         // Update Project
         break;
       default:
+        // FIX THIS: Status 405 will still be success
         res.status(405).end(`Method ${method} is not allowed`);
         break;
     }
     return res.status(200).json(project);
   } catch (error) {
-    return res.json(error);
+    return res.status(400).json(error);
   }
 };
 

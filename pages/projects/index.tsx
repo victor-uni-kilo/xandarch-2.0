@@ -6,9 +6,6 @@ import styles from "@styles/Projects.module.scss";
 import Link from "next/link";
 
 const Projects: NextPage<any> = ({ projects }) => {
-  console.log("projects", typeof projects);
-  console.log("projects", projects);
-
   return (
     <div className={styles.pageContent}>
       <h1 className={styles.color}>Hello from Projects</h1>
