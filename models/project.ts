@@ -1,26 +1,15 @@
 import mongoose, { Types } from "mongoose";
+import { IProjectSchema } from "types";
 
-export interface IProject {
-  projectTextEN: Types.ObjectId;
-  projectTextSR: Types.ObjectId;
-  area: number;
-  projectDate: Date;
-  completionDate: Date;
-  categories: {
-    byService: Types.ObjectId[];
-    byType: Types.ObjectId[];
-    byStatus: Types.ObjectId[];
-  };
-}
-const projectSchema = new mongoose.Schema<IProject>({
+const projectSchema = new mongoose.Schema<IProjectSchema>({
   projectTextEN: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "ProjectTextEN",
+    ref: "projectTextEN",
     required: [true, "Text in English is not saved"],
   },
   projectTextSR: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "ProjectTextSR",
+    ref: "projectTextSR",
     required: [true, "Text in Serbian is not saved"],
   },
   area: {
@@ -40,19 +29,19 @@ const projectSchema = new mongoose.Schema<IProject>({
     byService: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "serviceCategory",
+        ref: "category",
       },
     ],
     byType: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "typeCategory",
+        ref: "category",
       },
     ],
     byStatus: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "statusCategory",
+        ref: "category",
       },
     ],
   },
@@ -61,7 +50,7 @@ const projectSchema = new mongoose.Schema<IProject>({
   // },
 });
 
-const Project = mongoose.models.Project || mongoose.model<IProject>("Project", projectSchema);
+const Project = mongoose.models.Project || mongoose.model<IProjectSchema>("Project", projectSchema);
 // const Projekti = mongoose.models.Project || mongoose.model<IProject>("Projekti", projectSchema);
 
 export default Project;

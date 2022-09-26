@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToMongo from "@utils/connectDB";
-import Project, { IProject } from "models/Project";
-import ProjectText, { IProjectText } from "models/ProjectText";
+import Project from "models/Project";
+import ProjectText from "models/ProjectText";
 import { Types } from "mongoose";
 
 const addProjectHandler = async (req: NextApiRequest, res: NextApiResponse) => {

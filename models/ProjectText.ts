@@ -1,15 +1,9 @@
 import mongoose, { Types } from "mongoose";
 import validators from "./validators";
 import uniqueValidator from "mongoose-unique-validator";
+import { IProjectTextSchema } from "types";
 
-export interface IProjectText {
-  _id: Types.ObjectId;
-  title: string;
-  caption: string;
-  description: string;
-}
-
-const projectTextSchema = new mongoose.Schema<IProjectText>({
+const projectTextSchema = new mongoose.Schema<IProjectTextSchema>({
   title: {
     type: String,
     required: true,
@@ -33,6 +27,7 @@ const projectTextSchema = new mongoose.Schema<IProjectText>({
 projectTextSchema.plugin(uniqueValidator, { message: "Error, expected {PATH} to be unique." });
 
 const ProjectText =
-  mongoose.models.ProjectText || mongoose.model<IProjectText>("ProjectText", projectTextSchema);
+  mongoose.models.ProjectText ||
+  mongoose.model<IProjectTextSchema>("ProjectText", projectTextSchema);
 
 export default ProjectText;

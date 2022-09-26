@@ -14,7 +14,7 @@ const Projects: NextPage<any> = ({ projects }) => {
           projects.map((project: any, index: any) => (
             <li key={`project-${index}`}>
               <Link href={`/projects/${project._id}`}>
-                <a>{project.title}</a>
+                <a>{project.projectTextEN.title}</a>
               </Link>
             </li>
           ))}
