@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "./variables.scss" as *;
+
+.pageContent {
+  grid-column: 2 / 3;
+  border: 1px solid hotpink;
+  padding: 0 map.get($size-modules, "2");
+}
+
+.color {
+  color: greenyellow;
+  height: 300px;
+}
+
+.projectContainer {
+  background-color: aqua;
+}

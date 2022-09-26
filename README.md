@@ -32,3 +32,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+#Database API
+Database relies on mongoose for shema validation and ObjectID generation for mongoDB entries.
+
+##Project Api Routes
+**Get all projects**
+GET - /api/db/projects
+
+**Create project**
+POST - /api/db/projects/add
+
+**Get, Update, Delete project**
+GET - /api/db/projects/[projectID]
+UPDATE - /api/db/projects/[projectID]
+DELETE - /api/db/projects/[projectID]

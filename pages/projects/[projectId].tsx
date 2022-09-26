@@ -1,9 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/router";
 import { server } from "@utils/apiConfig";
 import styles from "@styles/Project.module.scss";
-import { IProject } from "models/Project";
-import { ContextType } from "react";
 
 const Project: NextPage<any> = ({ project }) => {
   const projectId = project._id;
@@ -20,15 +17,15 @@ export default Project;
 export const getStaticPaths = async () => {
   const projects = await fetch(`${server}/api/db/projects`).then(response => response.json());
 
-  const paths: string = projects.map((project: any) => {
+  const paths = projects.map((project: any) => {
     const projectId = encodeURI(project._id);
-
     return {
       // URL ENCODE
       params: { projectId: projectId },
     };
   });
 
+  console.log("paths", paths);
   return {
     paths: paths,
     fallback: false,
