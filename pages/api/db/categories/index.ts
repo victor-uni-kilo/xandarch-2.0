@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToMongo from "@utils/connectDB";
-import Category from "models/Project";
+import Category from "models/Category";
 
-const categoryHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const categoriesHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log("CONNECTING TO MONGO DB");
+  await connectToMongo();
+  console.log("CONNECTED TO MONGO DB");
+
   try {
-    console.log("CONNECTING TO MONGO DB");
-    await connectToMongo();
-    console.log("CONNECTED TO MONGO DB");
-
     console.log("FETCHING DOCUMENTs");
     const allCategories = await Category.find();
     console.log("FETCHED DOCUMENTs", allCategories);
@@ -18,4 +18,4 @@ const categoryHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default categoryHandler;
+export default categoriesHandler;

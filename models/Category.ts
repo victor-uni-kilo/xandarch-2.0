@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import validators from "./validators";
 import uniqueValidator from "mongoose-unique-validator";
-import { CATEGORY_TYPE, ICategoryScheme } from "types";
+import { CATEGORY_TYPE, ICategorySchema } from "types";
 
-const categorySchema = new mongoose.Schema<ICategoryScheme>({
+const categorySchema = new mongoose.Schema<ICategorySchema>({
   categoryEN: {
     type: String,
     required: true,
@@ -22,7 +22,6 @@ const categorySchema = new mongoose.Schema<ICategoryScheme>({
   },
   type: {
     type: String,
-    // enum: CATEGORY_TYPE,
     required: true,
   },
 });
@@ -30,12 +29,14 @@ categorySchema.plugin(uniqueValidator, { message: "Error, expected {PATH} to be 
 
 // export const serviceCategory =
 //   mongoose.models.serviceCategory ||
-//   mongoose.model<ICategoryScheme>("serviceCategory", categorySchema);
+//   mongoose.model<ICategorySchema>("serviceCategory", categorySchema);
 // export const typeCategory =
-//   mongoose.models.typeCategory || mongoose.model<ICategoryScheme>("typeCategory", categorySchema);
+//   mongoose.models.typeCategory || mongoose.model<ICategorySchema>("typeCategory", categorySchema);
 // export const statusCategory =
 //   mongoose.models.statusCategory ||
-//   mongoose.model<ICategoryScheme>("statusCategory", categorySchema);
+//   mongoose.model<ICategorySchema>("statusCategory", categorySchema);
 
-export default mongoose.models.Category ||
-  mongoose.model<ICategoryScheme>("Category", categorySchema);
+const Category =
+  mongoose.models.Category || mongoose.model<ICategorySchema>("Category", categorySchema);
+
+export default Category;

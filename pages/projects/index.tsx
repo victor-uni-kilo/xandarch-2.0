@@ -10,20 +10,18 @@ const Projects: NextPage<any> = ({ projects }) => {
     <div className={styles.pageContent}>
       <h1 className={styles.color}>Hello from Projects</h1>
       <ul>
-        {projects &&
+        {/* {projects &&
           projects.map((project: any, index: any) => (
             <li key={`project-${index}`}>
               <Link href={`/projects/${project._id}`}>
                 <a>{project.projectTextEN.title}</a>
               </Link>
             </li>
-          ))}
+          ))} */}
       </ul>
     </div>
   );
 };
-
-export default Projects;
 
 export async function getServerSideProps() {
   const projects: JSON = await fetch(`${server}/api/db/projects`, {
@@ -45,3 +43,5 @@ export async function getServerSideProps() {
     };
   }
 }
+
+export default Projects;

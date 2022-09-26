@@ -1,15 +1,15 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 import { IProjectSchema } from "types";
 
 const projectSchema = new mongoose.Schema<IProjectSchema>({
   projectTextEN: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "projectTextEN",
+    ref: "ProjectText",
     required: [true, "Text in English is not saved"],
   },
   projectTextSR: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "projectTextSR",
+    ref: "ProjectText",
     required: [true, "Text in Serbian is not saved"],
   },
   area: {
@@ -29,19 +29,19 @@ const projectSchema = new mongoose.Schema<IProjectSchema>({
     byService: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
+        ref: "Category",
       },
     ],
     byType: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
+        ref: "Category",
       },
     ],
     byStatus: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
+        ref: "Category",
       },
     ],
   },

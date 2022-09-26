@@ -36,10 +36,10 @@ export interface IProjectTextSchema {
   description: string;
 }
 
-export interface ICategoryScheme {
+export interface ICategorySchema {
   categoryEN: string;
   categorySR: string;
-  type: CATEGORY_TYPE;
+  type: string;
 }
 
 export interface IProject {

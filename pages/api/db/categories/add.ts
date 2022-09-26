@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToMongo from "@utils/connectDB";
-import Category from "models/ProjectText";
+import Category from "models/Category";
 
 const addCategoryHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("CONNECTING TO MONGO DB");
