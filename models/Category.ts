@@ -22,19 +22,11 @@ const categorySchema = new mongoose.Schema<ICategorySchema>({
   },
   type: {
     type: String,
+    enum: CATEGORY_TYPE,
     required: true,
   },
 });
 categorySchema.plugin(uniqueValidator, { message: "Error, expected {PATH} to be unique." });
-
-// export const serviceCategory =
-//   mongoose.models.serviceCategory ||
-//   mongoose.model<ICategorySchema>("serviceCategory", categorySchema);
-// export const typeCategory =
-//   mongoose.models.typeCategory || mongoose.model<ICategorySchema>("typeCategory", categorySchema);
-// export const statusCategory =
-//   mongoose.models.statusCategory ||
-//   mongoose.model<ICategorySchema>("statusCategory", categorySchema);
 
 const Category =
   mongoose.models.Category || mongoose.model<ICategorySchema>("Category", categorySchema);
