@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { IProjectSchema } from "types";
+import validators from "./validators";
 
 const projectSchema = new mongoose.Schema<IProjectSchema>({
   projectTextEN: {
@@ -26,24 +27,21 @@ const projectSchema = new mongoose.Schema<IProjectSchema>({
   },
 
   categories: {
-    byService: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-      },
-    ],
-    byType: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-      },
-    ],
-    byStatus: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-      },
-    ],
+    byService: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Category",
+      validate: validators.noDuplicates,
+    },
+    byType: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Category",
+      validate: validators.noDuplicates,
+    },
+    byStatus: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Category",
+      validate: validators.noDuplicates,
+    },
   },
   // coverImage: {
   //   type: mongoose.Types.ObjectId,

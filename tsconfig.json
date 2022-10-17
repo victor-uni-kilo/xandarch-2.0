@@ -20,15 +20,10 @@
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"],
       "@svg/*": ["public/svg/*"],
+      "@middleware/*": ["middleware/*"],
       "@utils/*": ["utils/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "models/projectSchema.js",
-    "pages/projectsData.jsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

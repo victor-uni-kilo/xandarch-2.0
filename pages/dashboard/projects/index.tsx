@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
 import { server } from "../../../utils/apiConfig";
-
 import styles from "@styles/PreviewProjects.module.scss";
-import Link from "next/link";
 import { IProject } from "types";
-import AllCategories from "@components/AllCategories/AllCategories";
 
 const PreviewProjects: NextPage<any> = ({ projects }) => {
   return (
@@ -18,7 +15,6 @@ const PreviewProjects: NextPage<any> = ({ projects }) => {
             <p>{project.projectTextEN.description}</p>
           </div>
         ))}
-      <AllCategories />
     </div>
   );
 };
@@ -26,14 +22,14 @@ const PreviewProjects: NextPage<any> = ({ projects }) => {
 export default PreviewProjects;
 
 export async function getServerSideProps() {
-  const projects: JSON = await fetch(`${server}/api/db/projects`, {
+  const allProjects: JSON = await fetch(`${server}/api/db/projects`, {
     method: "GET",
   }).then(response => response.json());
 
   try {
     return {
       props: {
-        projects,
+        projects: allProjects,
       },
     };
   } catch (error) {
