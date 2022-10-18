@@ -3,7 +3,7 @@ import { IProjectSchema } from "types";
 import validators from "./validators";
 import uniqueValidator from "mongoose-unique-validator";
 
-/// UNFORTUNATE ADDITIONAL SCHEMAS - MONGOOSE
+/// UNFORTUNATE ADDITIONAL SCHEMAS
 const titleSchema = new mongoose.Schema({
   en: {
     type: String,
@@ -50,7 +50,6 @@ const descriptionSchema = new mongoose.Schema({
 });
 
 /// MAIN SCHEMA for MODEL CREATION
-
 const projectSchema = new mongoose.Schema<IProjectSchema>({
   title: { type: titleSchema },
   caption: { type: captionSchema },
