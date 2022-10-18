@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToMongo from "@utils/connectDB";
 import Project from "models/Project";
-import ProjectText from "models/ProjectText";
 import Category from "models/Category";
 
 const projectsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -11,29 +10,9 @@ const projectsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     console.log("FETCHING DOCUMENTs");
-    const allProjects = await Project.find({}).populate([
-      { path: "projectTextEN", model: ProjectText },
-      { path: "projectTextSR", model: ProjectText },
-      // { path: "categories", model: Category },
-      {
-        path: "categories",
-        populate: [
-          {
-            path: "byService",
-            model: Category,
-          },
-          {
-            path: "byType",
-            model: Category,
-          },
-          {
-            path: "byStatus",
-            model: Category,
-          },
-        ],
-      },
-      // populate: { path: "byService", model: Category }
-    ]);
+    const allProjects = await Project.find({});
+    // .populate([{ path: "category", model: Category }]);
+    // THIS NEEDS TO WORK FOR ALL FOUND ITEMS
 
     console.log("FETCHED DOCUMENTs", allProjects);
 

@@ -1,54 +1,81 @@
 import mongoose from "mongoose";
 import { IProjectSchema } from "types";
 import validators from "./validators";
+import uniqueValidator from "mongoose-unique-validator";
+
+/// UNFORTUNATE ADDITIONAL SCHEMAS - MONGOOSE
+const titleSchema = new mongoose.Schema({
+  en: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: [2, "Title can't be shorter than 2 characters"],
+    maxLength: [32, "Title can't be longer than 32 characters"],
+    validate: [validators.noSpecialChars, validators.noEmptyString],
+  },
+  sr: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: [2, "Title can't be shorter than 2 characters"],
+    maxLength: [32, "Title can't be longer than 32 characters"],
+    validate: [validators.noSpecialChars, validators.noEmptyString],
+  },
+});
+
+const captionSchema = new mongoose.Schema({
+  en: {
+    type: String,
+    required: true,
+    validate: validators.noSpecialChars,
+  },
+  sr: {
+    type: String,
+    required: true,
+    validate: validators.noSpecialChars,
+  },
+});
+
+const descriptionSchema = new mongoose.Schema({
+  en: {
+    type: String,
+    required: true,
+    validate: validators.noSpecialChars,
+  },
+  sr: {
+    type: String,
+    required: true,
+    validate: validators.noSpecialChars,
+  },
+});
+
+/// MAIN SCHEMA for MODEL CREATION
 
 const projectSchema = new mongoose.Schema<IProjectSchema>({
-  projectTextEN: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "ProjectText",
-    required: [true, "Text in English is not saved"],
-  },
-  projectTextSR: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "ProjectText",
-    required: [true, "Text in Serbian is not saved"],
-  },
+  title: { type: titleSchema },
+  caption: { type: captionSchema },
+  description: { type: descriptionSchema },
   area: {
     type: Number,
-    required: true,
   },
-
   projectDate: {
     type: Date,
   },
-
   completionDate: {
     type: Date,
   },
-
   categories: {
-    byService: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Category",
-      validate: validators.noDuplicates,
-    },
-    byType: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Category",
-      validate: validators.noDuplicates,
-    },
-    byStatus: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Category",
-      validate: validators.noDuplicates,
-    },
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Category",
+    validate: validators.noDuplicates,
   },
   // coverImage: {
   //   type: mongoose.Types.ObjectId,
   // },
 });
 
+projectSchema.plugin(uniqueValidator, { message: "Error, expected {PATH} to be unique." });
+
 const Project = mongoose.models.Project || mongoose.model<IProjectSchema>("Project", projectSchema);
-// const Projekti = mongoose.models.Project || mongoose.model<IProject>("Projekti", projectSchema);
 
 export default Project;

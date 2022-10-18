@@ -1,45 +1,32 @@
 import { Types } from "mongoose";
 import { ProjectFormContext } from "pages/dashboard/projects/new";
 import { FC, useContext, useState } from "react";
-import { ICategories, ICategory } from "types";
+import { ICategory } from "types";
 import cx from "classnames";
 
 import styles from "./CategoryItem.module.scss";
 
 interface ICategoryItemProps {
-  formStateNode: string;
   categoryObject: ICategory;
 }
 
-const CategoryItem: FC<ICategoryItemProps> = ({ formStateNode, categoryObject }) => {
+const CategoryItem: FC<ICategoryItemProps> = ({ categoryObject }) => {
   const [formState, setFormState] = useContext<any>(ProjectFormContext);
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleAdd = (key: string, id: Types.ObjectId) => {
-    console.log("ADDING TO PROJECT", key, id);
-
-    // const formStateNodeArray = formState.categories[formStateNode as keyof ICategories];
-    const formStateNodeArray = [...formState.categories[formStateNode as keyof ICategories]];
-
-    console.log("formStateNodeArray", formStateNodeArray);
+  const handleAdd = (id: Types.ObjectId) => {
+    console.log("ADDING TO PROJECT", id);
+    const formStateCategories = [...formState.categories];
 
     let newStateArray: ICategory[];
 
     if (isSelected === false) {
-      newStateArray = [...formStateNodeArray, { _id: id }];
-    } else if (isSelected === true) {
-      newStateArray = formStateNodeArray.filter(item => item._id !== id);
+      newStateArray = [...formStateCategories, { _id: id }];
     } else {
-      newStateArray = [];
+      newStateArray = formStateCategories.filter(item => item._id !== id);
     }
 
-    setFormState({
-      ...formState,
-      categories: {
-        [formStateNode]: newStateArray,
-      },
-    });
-
+    setFormState({ ...formState, categories: newStateArray });
     setIsSelected(!isSelected);
   };
 
@@ -48,8 +35,8 @@ const CategoryItem: FC<ICategoryItemProps> = ({ formStateNode, categoryObject })
   return (
     <li className={cx(styles.categoryItem, toggleActiveClass)}>
       <span>
-        {`${categoryObject.categoryEN} / ${categoryObject.categorySR}`}
-        <button type="button" onClick={() => handleAdd(formStateNode, categoryObject._id)}>
+        {`${categoryObject.category.en} / ${categoryObject.category.sr}`}
+        <button type="button" onClick={() => handleAdd(categoryObject._id)}>
           add/remove
         </button>
       </span>

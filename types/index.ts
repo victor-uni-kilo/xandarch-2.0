@@ -1,5 +1,7 @@
 import { Types } from "mongoose";
 
+export type MongooseObjectId = Types.ObjectId;
+
 export interface IPagesMap {
   text: string;
   href: string;
@@ -10,75 +12,77 @@ export enum LOCALE {
   sr = "sr-RS",
 }
 
+export type languageEnum = keyof typeof LOCALE;
+
 export enum CATEGORY_TYPE {
   byService = "byService",
   byType = "byType",
   byStatus = "byStatus",
 }
 
-//TYPES FOR FORMS
-export interface IProjectForm {
-  projectTextEN: IProjectTextSchema;
-  projectTextSR: IProjectTextSchema;
-  area: number | null;
-  projectDate: Date | null;
-  completionDate: Date | null;
-  categories: ICategories;
-}
-
-export interface ICategoriesForm {
-  [CATEGORY_TYPE.byService]: ICategorySchema[];
-  [CATEGORY_TYPE.byType]: ICategorySchema[];
-  [CATEGORY_TYPE.byStatus]: ICategorySchema[];
-}
+export type categoryType = `${CATEGORY_TYPE}`;
 
 // PROJECT SCHEMAS FOR MONGOOSE
 export interface IProjectSchema {
-  projectTextEN: Types.ObjectId;
-  projectTextSR: Types.ObjectId;
+  title: {
+    en: string;
+    sr: string;
+  };
+  caption: {
+    en: string;
+    sr: string;
+  };
+  description: {
+    en: string;
+    sr: string;
+  };
   area: number;
   projectDate: Date;
   completionDate: Date;
-  categories: {
-    [CATEGORY_TYPE.byService]: Types.ObjectId[];
-    [CATEGORY_TYPE.byType]: Types.ObjectId[];
-    [CATEGORY_TYPE.byStatus]: Types.ObjectId[];
-  };
-}
-
-export interface IProjectTextSchema {
-  title: string;
-  caption: string;
-  description: string;
+  categories: MongooseObjectId[];
 }
 
 export interface ICategorySchema {
-  categoryEN: string;
-  categorySR: string;
-  type: string;
+  category: {
+    en: string;
+    sr: string;
+  };
+  type: categoryType;
 }
 
 // MONGOOSE ADDS IDs so...
-export interface IProject {
-  _id: Types.ObjectId;
-  projectTextEN: IProjectText;
-  projectTextSR: IProjectText;
+
+export interface IProject extends IProjectSchema {
+  _id: MongooseObjectId;
+}
+
+export interface ICategory extends ICategorySchema {
+  _id: MongooseObjectId;
+}
+
+//TYPES FOR FRONTEND
+export interface IProjectData {
+  _id?: MongooseObjectId; //decision pending
+  title: {
+    en: string;
+    sr: string;
+  };
+  caption: {
+    en: string;
+    sr: string;
+  };
+  description: {
+    en: string;
+    sr: string;
+  };
   area: number | null;
   projectDate: Date | null;
   completionDate: Date | null;
-  categories: ICategories;
+  categories: ICategory[];
 }
 
 export interface ICategories {
   [CATEGORY_TYPE.byService]: ICategory[];
   [CATEGORY_TYPE.byType]: ICategory[];
   [CATEGORY_TYPE.byStatus]: ICategory[];
-}
-
-export interface IProjectText extends IProjectTextSchema {
-  _id: Types.ObjectId;
-}
-
-export interface ICategory extends ICategorySchema {
-  _id: Types.ObjectId;
 }

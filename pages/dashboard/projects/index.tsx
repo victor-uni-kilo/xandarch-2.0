@@ -1,14 +1,14 @@
 import type { NextPage } from "next";
 import { server } from "../../../utils/apiConfig";
 import styles from "@styles/PreviewProjects.module.scss";
-import { IProject } from "types";
+import { IProjectData } from "types";
 
 const PreviewProjects: NextPage<any> = ({ projects }) => {
   return (
     <div className={styles.pageContent}>
       <h1 className={styles.color}>Hello from PreviewProjects</h1>
       {projects &&
-        projects.map((project: IProject, index: number) => (
+        projects.map((project: IProjectData, index: number) => (
           <div className={styles.projectContainer} key={`project-${index}`}>
             <h2>{project.projectTextEN.title}</h2>
             <span>{project.projectTextEN.caption}</span>
