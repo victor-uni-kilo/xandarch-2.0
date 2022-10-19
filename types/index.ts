@@ -1,5 +1,7 @@
 import { Types } from "mongoose";
 
+export type MongooseObjectId = Types.ObjectId;
+
 export interface IPagesMap {
   text: string;
   href: string;
@@ -10,48 +12,77 @@ export enum LOCALE {
   sr = "sr-RS",
 }
 
+export type languageEnum = keyof typeof LOCALE;
+
 export enum CATEGORY_TYPE {
   byService = "byService",
   byType = "byType",
   byStatus = "byStatus",
 }
 
+export type categoryType = `${CATEGORY_TYPE}`;
+
+// PROJECT SCHEMAS FOR MONGOOSE
 export interface IProjectSchema {
-  projectTextEN: Types.ObjectId;
-  projectTextSR: Types.ObjectId;
+  title: {
+    en: string;
+    sr: string;
+  };
+  caption: {
+    en: string;
+    sr: string;
+  };
+  description: {
+    en: string;
+    sr: string;
+  };
   area: number;
   projectDate: Date;
   completionDate: Date;
-  categories: {
-    byService: Types.ObjectId[];
-    byType: Types.ObjectId[];
-    byStatus: Types.ObjectId[];
-  };
-}
-
-export interface IProjectTextSchema {
-  _id: Types.ObjectId;
-  title: string;
-  caption: string;
-  description: string;
+  categories: MongooseObjectId[];
 }
 
 export interface ICategorySchema {
-  categoryEN: string;
-  categorySR: string;
-  type: string;
+  category: {
+    en: string;
+    sr: string;
+  };
+  type: categoryType;
 }
 
-export interface IProject {
-  _id: Types.ObjectId;
-  projectTextEN: IProjectTextSchema;
-  projectTextSR: IProjectTextSchema;
-  area: number;
-  projectDate: Date;
-  completionDate: Date;
-  categories: {
-    byService: Types.ObjectId[];
-    byType: Types.ObjectId[];
-    byStatus: Types.ObjectId[];
+// MONGOOSE ADDS IDs so...
+
+export interface IProject extends IProjectSchema {
+  _id: MongooseObjectId;
+}
+
+export interface ICategory extends ICategorySchema {
+  _id: MongooseObjectId;
+}
+
+//TYPES FOR FRONTEND
+export interface IProjectData {
+  _id?: MongooseObjectId; //decision pending
+  title: {
+    en: string;
+    sr: string;
   };
+  caption: {
+    en: string;
+    sr: string;
+  };
+  description: {
+    en: string;
+    sr: string;
+  };
+  area: number | null;
+  projectDate: Date | null;
+  completionDate: Date | null;
+  categories: ICategory[];
+}
+
+export interface ICategories {
+  [CATEGORY_TYPE.byService]: ICategory[];
+  [CATEGORY_TYPE.byType]: ICategory[];
+  [CATEGORY_TYPE.byStatus]: ICategory[];
 }

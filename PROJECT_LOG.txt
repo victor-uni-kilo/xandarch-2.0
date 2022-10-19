@@ -1,7 +1,10 @@
-A. next-auth > authentication, which provider?
+- next-auth > Jow to setup a simple login gate without signup option
 
-B. How to upload and store images?
-1. models> not active
-2. services> not active
 
-C. Explore hreflang in NEXT for SEO sake;
+BACKEND >
+
+- API ROUTES: needed for individual subdocuments on edit page
+- How to upload and store images using gridfs?
+
+
+D. Explore hreflang in NEXT for SEO sake;

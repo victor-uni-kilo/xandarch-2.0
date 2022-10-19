@@ -11,6 +11,15 @@ const validators = {
     },
     message: `Please, no special characters.`,
   },
+  noDuplicates: {
+    validator: (v: []) => {
+      const isDuplicate = v.some(function (item, id) {
+        return v.indexOf(item) !== id;
+      });
+      return Promise.resolve(!isDuplicate);
+    },
+    message: `No repeating keywords.`,
+  },
 };
 
 export default validators;

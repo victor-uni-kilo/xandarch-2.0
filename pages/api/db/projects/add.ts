@@ -1,52 +1,40 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToMongo from "@utils/connectDB";
 import Project from "models/Project";
-import ProjectText from "models/ProjectText";
-import { Types } from "mongoose";
 
 const addProjectHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("CONNECTING TO MONGO DB");
   await connectToMongo();
   console.log("CONNECTED TO MONGO DB");
 
-  const projectTextEN = await new ProjectText(req.body.projectTextEN);
-  const projectTextSR = await new ProjectText(req.body.projectTextSR);
   const newProject = await new Project(req.body);
 
-  //reset newProject language based text;
-  newProject.projectTextEN = null;
-  newProject.projectTextSR = null;
+  // NEED IMAGES IDS
+  // ^^^ THIS REQUIRES NextApiRequestCUSTOM to allow re.file
 
-  console.log("newProjectAfterDeletion", newProject);
+  //   let imageIds = [];
+  //   if (req.files || req.files !== undefin`ed) {
+  //     const files = req.files;
+  //     files.forEach((file: { size: number; id: any }) => {
+  //       if (file.size > 5000000) {
+  //         // deleteImage(file.id);
+  //         console.log("IMAGE IS TO BIG", file.id);
 
-  let errorList = [];
+  //         return res.status(400).send("File may NOT exceed 5mb."); // NOT PRINTING LAST CHARACTER / we need this as a flash message
+  //       }
+  //       imageIds.push(file.id);
+  //     });
+  //   }
+
+  // NEED CTATEGORIES IDS
 
   try {
-    await projectTextEN.validate();
-  } catch (error) {
-    errorList.push(error);
-  }
-
-  try {
-    await projectTextSR.validate();
-  } catch (error) {
-    errorList.push(error);
-  }
-
-  try {
-    if (errorList.length === 0) {
-      projectTextEN.save();
-      projectTextSR.save();
-      newProject.projectTextEN = projectTextEN._id;
-      newProject.projectTextSR = projectTextSR._id;
-    }
-
     await newProject.save();
 
     res.status(201).json(newProject);
   } catch (error) {
-    errorList.unshift(error);
-    res.status(400).json(errorList);
+    console.log("CREATION ERROR", error);
+    res.status(400).json(error);
   }
 };
 
