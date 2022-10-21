@@ -33,7 +33,7 @@ addImageHandler.post(async (req: any, res: any) => {
         })
         .on("finish", function () {
           console.log("done!");
-          process.exit(0);
+          // process.exit(0);
         });
     });
 

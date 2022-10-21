@@ -68,9 +68,13 @@ const projectSchema = new mongoose.Schema<IProjectSchema>({
     ref: "Category",
     validate: validators.noDuplicates,
   },
-  // coverImage: {
-  //   type: mongoose.Types.ObjectId,
-  // },
+  projectImages: {
+    type: [mongoose.Schema.Types.ObjectId],
+    validate: validators.noDuplicates,
+  },
+  heroImage: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
 });
 
 projectSchema.plugin(uniqueValidator, { message: "Error, expected {PATH} to be unique." });
