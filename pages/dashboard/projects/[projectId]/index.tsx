@@ -1,13 +1,22 @@
 import type { GetStaticProps, NextPage } from "next";
 import { server } from "@utils/apiConfig";
 import styles from "@styles/PreviewProject.module.scss";
+import { useContext, useEffect } from "react";
+import { PageLayoutContext } from "@components/Layout/Layout";
 
 const PreviewProject: NextPage<any> = ({ project }) => {
   const projectId = project._id;
+  const [dynamicPageTitle, setDynamicPageTitle] = useContext<any>(PageLayoutContext);
+
+  useEffect(() => {
+    setDynamicPageTitle(project.title.en);
+  }, []);
 
   return (
     <>
-      <h1 className={styles.color}>PreviewProject Details for {projectId}</h1>
+      <div>
+        <h1 className={styles.color}>PreviewProject Details for {projectId}</h1>
+      </div>
     </>
   );
 };

@@ -1,19 +1,20 @@
 import { ProjectFormContext } from "pages/dashboard/projects/new";
-import { FC, useContext } from "react";
-import { languageEnum } from "types";
+import { Context, FC, useContext } from "react";
+import { FormContext, languageEnum } from "types";
 
 interface IProjectTextFieldsProps {
   language: languageEnum;
+  context: Context<FormContext>; // not versatile enough
 }
 
-const ProjectTextFields: FC<IProjectTextFieldsProps> = ({ language }) => {
-  const [formState, setFormState] = useContext<any>(ProjectFormContext);
+const ProjectTextFields: FC<IProjectTextFieldsProps> = ({ language, context }) => {
+  const [contextState, setContextState] = useContext<any>(context);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const key = event.target.name;
     const value = event.target.value;
 
-    setFormState({ ...formState, [key]: { ...formState[key], [language]: value } });
+    setContextState({ ...contextState, [key]: { ...contextState[key], [language]: value } });
   };
 
   return (

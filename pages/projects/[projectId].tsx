@@ -1,13 +1,23 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { server } from "@utils/apiConfig";
+
 import styles from "@styles/Project.module.scss";
+import { useContext, useEffect } from "react";
+import { PageLayoutContext } from "@components/Layout/Layout";
 
 const Project: NextPage<any> = ({ project }) => {
   const projectId = project._id;
+  const [dynamicPageTitle, setDynamicPageTitle] = useContext<any>(PageLayoutContext);
+
+  useEffect(() => {
+    setDynamicPageTitle(project.title.en);
+  }, []);
 
   return (
     <>
-      <h1 className={styles.color}>Project Details for {projectId}</h1>
+      <div>
+        <h1 className={styles.color}>Project Details for {projectId}</h1>
+      </div>
     </>
   );
 };
@@ -16,7 +26,6 @@ export default Project;
 
 export const getStaticPaths = async () => {
   const projects = await fetch(`${server}/api/db/projects`).then(response => response.json());
-
   const paths = projects.map((project: any) => {
     const projectId = encodeURI(project._id);
     return {

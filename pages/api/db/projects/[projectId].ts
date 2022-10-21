@@ -5,6 +5,7 @@ import Project from "models/Project";
 const singleProjectHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const method = req.method;
   const projectId = req.query.projectId;
+  console.log("projectIdSIngle", projectId);
 
   console.log("CONNECTING TO MONGO DB");
   await connectToMongo();
@@ -15,9 +16,9 @@ const singleProjectHandler = async (req: NextApiRequest, res: NextApiResponse) =
     switch (method) {
       case "GET":
         console.log("FETCHING DOCUMENT");
-        project = await Project.findOne({ _id: projectId }).populate("categories");
+        project = await Project.findOne({ _id: projectId });
+        // .populate("categories");
 
-        // SHOULD POPULATE THE REQUIRED TEXT
         console.log("FETCHED DOCUMENT", project);
         break;
 

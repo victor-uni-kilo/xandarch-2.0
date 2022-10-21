@@ -5,10 +5,10 @@ import styles from "./CategoryPicker.module.scss";
 import CategoryItem from "./CategoryItem/CategoryItem";
 
 interface ICategoryPickerProps {
-  allCategories: ICategory[];
+  existingCategories: ICategory[];
 }
 
-const CategoryPicker: FC<ICategoryPickerProps> = ({ allCategories }) => {
+const CategoryPicker: FC<ICategoryPickerProps> = ({ existingCategories }) => {
   // DOMPONENT MOUNTS CHECKING ADDED AND SETTING ACTIVE OR INACTIVE BUTTON STATE
   let sortedCategories: ICategories = {
     byService: [],
@@ -35,7 +35,7 @@ const CategoryPicker: FC<ICategoryPickerProps> = ({ allCategories }) => {
     });
   };
 
-  sortCategories(allCategories);
+  sortCategories(existingCategories);
 
   return (
     <div>
@@ -48,6 +48,26 @@ const CategoryPicker: FC<ICategoryPickerProps> = ({ allCategories }) => {
               <CategoryItem key={`category-${index}`} categoryObject={item} />
             ))}
             <p>(Add New Category)</p>
+            createcomponent
+            {/* <h2>Add Categories</h2>
+          <label htmlFor="english">Title:</label>
+          <input
+            type="text"
+            name="english"
+            // onChange={event => handleInput(event)}
+          />
+          <label htmlFor="serbian">Title:</label>
+          <input
+            type="text"
+            name="serbian"
+            // onChange={event => handleInput(event)}
+          />
+          <label htmlFor="categoryType">Title:</label>
+          <input
+            type="select"
+            name="categoryType"
+            // onChange={event => handleInput(event)}
+          /> */}
           </div>
         );
       })}

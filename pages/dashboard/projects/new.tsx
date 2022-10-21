@@ -3,8 +3,10 @@ import { server } from "../../../utils/apiConfig";
 import { useState, createContext, SetStateAction, Dispatch } from "react";
 import styles from "@styles/NewProject.module.scss";
 import ProjectTextFields from "@components/Forms/ProjectTextFields/ProjectTextFormFields";
-import { IProjectData } from "types";
+import { FormContext, IProjectData } from "types";
 import CategoryPicker from "@components/CategoryPicker/CategoryPicker";
+import ImagePicker from "@components/Forms/ImagePicker/ImagePicker";
+import { Head } from "next/document";
 
 const initFormState: IProjectData = {
   title: {
@@ -23,16 +25,17 @@ const initFormState: IProjectData = {
   projectDate: null,
   completionDate: null,
   categories: [],
+  projectImages: [],
+  heroImage: null,
 };
 // GET DAY.JS DATEPICKER
-type FormContext = [IProjectData, Dispatch<SetStateAction<IProjectData>>] | null;
 
 export const ProjectFormContext = createContext<FormContext>(null);
 
-const NewProject: NextPage<any> = ({ allCategories }) => {
+const NewProject: NextPage<any> = ({ existingCategories }) => {
   const [formState, setFormState] = useState(initFormState); //useModel
 
-  console.log("categories", allCategories);
+  console.log("categories", existingCategories);
   console.log("FORMState", formState);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,8 +50,6 @@ const NewProject: NextPage<any> = ({ allCategories }) => {
     // VALIDATE DATE
     setFormState({ ...formState, [key]: value });
   };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -67,90 +68,85 @@ const NewProject: NextPage<any> = ({ allCategories }) => {
     });
   };
 
+  ///FUTURE IMAGE COMPONENT EVENTS
+
   console.log(typeof formState.projectDate);
   console.log(formState.projectDate);
   return (
-    <div className={styles.pageContent}>
-      <h1 className={styles.color}>Hello from NewProject</h1>
-      <div>
-        <ProjectFormContext.Provider value={[formState, setFormState]}>
-          <form
-            acceptCharset="UTF-8"
-            method="POST"
-            encType="multipart/form-data"
-            onSubmit={handleSubmit}
-          >
-            <fieldset>
-              <legend>English Text</legend>
-              <ProjectTextFields language={"en"} />
-            </fieldset>
+    <>
+      <div className={styles.pageContent}>
+        <h1 className={styles.color}>Hello from NewProject</h1>
+        <div>
+          <ProjectFormContext.Provider value={[formState, setFormState]}>
+            <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit}>
+              <fieldset>
+                <legend>English Text</legend>
+                <ProjectTextFields language={"en"} context={ProjectFormContext} />
+              </fieldset>
 
-            <p>{formState.title.en}</p>
+              <p>{formState.title.en}</p>
 
-            <fieldset>
-              <legend>Serbian Text</legend>
-              <ProjectTextFields language={"sr"} />
-            </fieldset>
+              <fieldset>
+                <legend>Serbian Text</legend>
+                <ProjectTextFields language={"sr"} context={ProjectFormContext} />
+              </fieldset>
 
-            <p>{formState.title.sr}</p>
+              <p>{formState.title.sr}</p>
 
-            <fieldset>
-              <legend>Common Data</legend>
-              <div>
-                <label htmlFor="area">Area:</label>
-                <input type="number" name="area" onChange={event => handleInput(event)} />
-                <span>
-                  m<sup>2</sup>
-                </span>
-              </div>
+              <fieldset>
+                <legend>Common Data</legend>
+                <div>
+                  <label htmlFor="area">Area:</label>
+                  <input type="number" name="area" onChange={event => handleInput(event)} />
+                  <span>
+                    m<sup>2</sup>
+                  </span>
+                </div>
 
-              <p>{formState.area}</p>
+                <p>{formState.area}</p>
 
-              <div>
-                <label htmlFor="projectDate">Project Date:</label>
-                <input type="date" name="projectDate" onChange={event => handleInput(event)} />
-              </div>
+                <div>
+                  <label htmlFor="projectDate">Project Date:</label>
+                  <input type="date" name="projectDate" onChange={event => handleInput(event)} />
+                </div>
 
-              <div>
-                <label htmlFor="completionDate">Completion Date:</label>
-                <input type="date" name="completionDate" onChange={event => handleInput(event)} />
-              </div>
-            </fieldset>
+                <div>
+                  <label htmlFor="completionDate">Completion Date:</label>
+                  <input type="date" name="completionDate" onChange={event => handleInput(event)} />
+                </div>
+              </fieldset>
 
-            <p>{formState.projectDate?.toLocaleDateString("en-US")}</p>
-            <p>{formState.completionDate?.toLocaleDateString("en-US")}</p>
+              <p>{formState.projectDate?.toLocaleDateString("en-US")}</p>
+              <p>{formState.completionDate?.toLocaleDateString("en-US")}</p>
 
-            <fieldset>
-              <legend>Categories</legend>
-              <CategoryPicker allCategories={allCategories} />
-            </fieldset>
+              <fieldset>
+                <legend>Categories</legend>
+                <CategoryPicker existingCategories={existingCategories} />
+              </fieldset>
 
-            {/* <fieldset>
-              <legend>Images</legend>
-              <div>
-                <label htmlFor="file">Image Upload:</label>
-                <input type="file" name="file" onChange={event => handleFileChange(event)} />
-              </div>
-            </fieldset>`` */}
-            <input type="submit" value="Submit" />
-          </form>
-        </ProjectFormContext.Provider>
+              <fieldset>
+                <legend>Images</legend>
+              </fieldset>
+              <input type="submit" value="Submit" />
+            </form>
+          </ProjectFormContext.Provider>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default NewProject;
 
 export async function getServerSideProps() {
-  const allCategories: JSON = await fetch(`${server}/api/db/categories`, {
+  const existingCategories: JSON = await fetch(`${server}/api/db/categories`, {
     method: "GET",
   }).then(response => response.json());
 
   try {
     return {
       props: {
-        allCategories,
+        existingCategories,
       },
     };
   } catch (error) {
