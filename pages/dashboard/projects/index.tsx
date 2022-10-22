@@ -1,30 +1,28 @@
 import type { NextPage } from "next";
 import { server } from "../../../utils/apiConfig";
-import styles from "@styles/PreviewProjects.module.scss";
 import { IProjectData } from "types";
-import { Head } from "next/document";
 
-const PreviewProjects: NextPage<any> = ({ projects }) => {
+import styles from "@styles/Page.module.scss";
+
+const ProjectManager: NextPage<any> = ({ projects }) => {
   return (
-    <>
-      <div className={styles.pageContent}>
-        <h1 className={styles.color}>Hello from PreviewProjects</h1>
-        {projects &&
-          projects.map((project: IProjectData, index: number) => (
-            <div className={styles.projectContainer} key={`project-${index}`}>
-              <h2>{project.title.en}</h2>
-              <span>{project.caption?.en}</span>
-              <p>{project.description?.en}</p>
-            </div>
-          ))}
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.color}>Hello from ProjectManager</h1>
+      {projects &&
+        projects.map((project: IProjectData, index: number) => (
+          <div className={styles.projectContainer} key={`project-${index}`}>
+            <h2>{project.title.en}</h2>
+            <span>{project.caption?.en}</span>
+            <p>{project.description?.en}</p>
+          </div>
+        ))}
 
-        {!projects && <p>Projects Not Added Yet.</p>}
-      </div>
-    </>
+      {!projects && <p>Projects Not Added Yet.</p>}
+    </div>
   );
 };
 
-export default PreviewProjects;
+export default ProjectManager;
 
 export async function getServerSideProps() {
   const existingProjects: IProjectData[] = await fetch(`${server}/api/db/projects`, {

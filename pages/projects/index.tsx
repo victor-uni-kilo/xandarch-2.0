@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import { server } from "../../utils/apiConfig";
-import styles from "@styles/Projects.module.scss";
 import Link from "next/link";
+import styles from "@styles/Page.module.scss";
 
 const Projects: NextPage<any> = ({ projects }) => {
   return (
-    <div className={styles.pageContent}>
+    <div className={styles.pageWrapper}>
       <h1 className={styles.color}>Hello from Projects</h1>
       <ul>
         {projects &&

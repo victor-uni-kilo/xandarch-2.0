@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
 import { server } from "@utils/apiConfig";
 
-import styles from "@styles/Project.module.scss";
 import { useContext, useEffect } from "react";
 import { PageLayoutContext } from "@components/Layout/Layout";
+
+import styles from "@styles/Page.module.scss";
 
 const Project: NextPage<any> = ({ project }) => {
   const projectId = project._id;
@@ -14,11 +15,9 @@ const Project: NextPage<any> = ({ project }) => {
   }, []);
 
   return (
-    <>
-      <div>
-        <h1 className={styles.color}>Project Details for {projectId}</h1>
-      </div>
-    </>
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.color}>Project Details for {projectId}</h1>
+    </div>
   );
 };
 

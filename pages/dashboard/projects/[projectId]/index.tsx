@@ -1,8 +1,9 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { server } from "@utils/apiConfig";
-import styles from "@styles/PreviewProject.module.scss";
 import { useContext, useEffect } from "react";
 import { PageLayoutContext } from "@components/Layout/Layout";
+
+import styles from "@styles/Page.module.scss";
 
 const PreviewProject: NextPage<any> = ({ project }) => {
   const projectId = project._id;
@@ -13,11 +14,9 @@ const PreviewProject: NextPage<any> = ({ project }) => {
   }, []);
 
   return (
-    <>
-      <div>
-        <h1 className={styles.color}>PreviewProject Details for {projectId}</h1>
-      </div>
-    </>
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.color}>PreviewProject Details for {projectId}</h1>
+    </div>
   );
 };
 

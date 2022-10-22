@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
 import { server } from "../../../utils/apiConfig";
 import { useState, createContext, SetStateAction, Dispatch } from "react";
-import styles from "@styles/NewProject.module.scss";
-import ProjectTextFields from "@components/Forms/ProjectTextFields/ProjectTextFormFields";
 import { FormContext, IProjectData } from "types";
+import ProjectTextFields from "@components/Forms/ProjectTextFields/ProjectTextFormFields";
 import CategoryPicker from "@components/CategoryPicker/CategoryPicker";
-import ImagePicker from "@components/Forms/ImagePicker/ImagePicker";
-import { Head } from "next/document";
+
+import styles from "@styles/Page.module.scss";
 
 const initFormState: IProjectData = {
   title: {
@@ -73,66 +72,64 @@ const NewProject: NextPage<any> = ({ existingCategories }) => {
   console.log(typeof formState.projectDate);
   console.log(formState.projectDate);
   return (
-    <>
-      <div className={styles.pageContent}>
-        <h1 className={styles.color}>Hello from NewProject</h1>
-        <div>
-          <ProjectFormContext.Provider value={[formState, setFormState]}>
-            <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit}>
-              <fieldset>
-                <legend>English Text</legend>
-                <ProjectTextFields language={"en"} context={ProjectFormContext} />
-              </fieldset>
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.color}>Hello from NewProject</h1>
+      <div>
+        <ProjectFormContext.Provider value={[formState, setFormState]}>
+          <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit}>
+            <fieldset>
+              <legend>English Text</legend>
+              <ProjectTextFields language={"en"} context={ProjectFormContext} />
+            </fieldset>
 
-              <p>{formState.title.en}</p>
+            <p>{formState.title.en}</p>
 
-              <fieldset>
-                <legend>Serbian Text</legend>
-                <ProjectTextFields language={"sr"} context={ProjectFormContext} />
-              </fieldset>
+            <fieldset>
+              <legend>Serbian Text</legend>
+              <ProjectTextFields language={"sr"} context={ProjectFormContext} />
+            </fieldset>
 
-              <p>{formState.title.sr}</p>
+            <p>{formState.title.sr}</p>
 
-              <fieldset>
-                <legend>Common Data</legend>
-                <div>
-                  <label htmlFor="area">Area:</label>
-                  <input type="number" name="area" onChange={event => handleInput(event)} />
-                  <span>
-                    m<sup>2</sup>
-                  </span>
-                </div>
+            <fieldset>
+              <legend>Common Data</legend>
+              <div>
+                <label htmlFor="area">Area:</label>
+                <input type="number" name="area" onChange={event => handleInput(event)} />
+                <span>
+                  m<sup>2</sup>
+                </span>
+              </div>
 
-                <p>{formState.area}</p>
+              <p>{formState.area}</p>
 
-                <div>
-                  <label htmlFor="projectDate">Project Date:</label>
-                  <input type="date" name="projectDate" onChange={event => handleInput(event)} />
-                </div>
+              <div>
+                <label htmlFor="projectDate">Project Date:</label>
+                <input type="date" name="projectDate" onChange={event => handleInput(event)} />
+              </div>
 
-                <div>
-                  <label htmlFor="completionDate">Completion Date:</label>
-                  <input type="date" name="completionDate" onChange={event => handleInput(event)} />
-                </div>
-              </fieldset>
+              <div>
+                <label htmlFor="completionDate">Completion Date:</label>
+                <input type="date" name="completionDate" onChange={event => handleInput(event)} />
+              </div>
+            </fieldset>
 
-              <p>{formState.projectDate?.toLocaleDateString("en-US")}</p>
-              <p>{formState.completionDate?.toLocaleDateString("en-US")}</p>
+            <p>{formState.projectDate?.toLocaleDateString("en-US")}</p>
+            <p>{formState.completionDate?.toLocaleDateString("en-US")}</p>
 
-              <fieldset>
-                <legend>Categories</legend>
-                <CategoryPicker existingCategories={existingCategories} />
-              </fieldset>
+            <fieldset>
+              <legend>Categories</legend>
+              <CategoryPicker existingCategories={existingCategories} />
+            </fieldset>
 
-              <fieldset>
-                <legend>Images</legend>
-              </fieldset>
-              <input type="submit" value="Submit" />
-            </form>
-          </ProjectFormContext.Provider>
-        </div>
+            <fieldset>
+              <legend>Images</legend>
+            </fieldset>
+            <input type="submit" value="Submit" />
+          </form>
+        </ProjectFormContext.Provider>
       </div>
-    </>
+    </div>
   );
 };
 

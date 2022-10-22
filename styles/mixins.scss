@@ -7,3 +7,11 @@
     @content;
   }
 }
+
+@mixin typography($size-index, $weight-index) {
+  $size-base: map.get($size-au-modules, $size-index);
+  font-size: $size-base;
+  line-height: $size-base * 1.6;
+  letter-spacing: $size-base * -0.02;
+  font-weight: map.get($font-weights, $weight-index);
+}

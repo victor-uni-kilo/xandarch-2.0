@@ -8,7 +8,8 @@ $phi: 1.618;
 @function goldSize($basis, $level) {
   @if $level < 0 {
     @return $basis * math.pow($phi, math.abs($level));
-  } @else {
+  }
+  @else {
     @return math.div($basis, math.pow($phi, $level));
   }
 }
@@ -17,7 +18,7 @@ $phi: 1.618;
 @function goldChain($basis, $levels...) {
   $result: 0;
   @each $level in $levels {
-    $result: $result + goldSize($basis, $level);
+    $result: $result +goldSize($basis, $level);
   }
   @return $result;
 }
@@ -27,16 +28,17 @@ $phi: 1.618;
 @function goldGridColumns($length, $levels) {
   $ratioSum: 0;
   @each $level in $levels {
-    $ratioSum: $ratioSum + goldSize(1, $level);
-  }
-  
-  $ratioCoefficient: math.div($length, $ratioSum);
-  $columnWidthList: ();
-  
-  @each $level in $levels {
-    $columnWidth: $ratioCoefficient * goldSize(1, $level);
-    $columnWidthList: append($columnWidthList, $columnWidth, $separator: space);
+    $ratioSum: $ratioSum +goldSize(1, $level);
   }
 
-  @return $columnWidthList;
+  $ratioCoefficient: math.div($length, $ratioSum);
+  $columnWidthList: (
+  );
+
+@each $level in $levels {
+  $columnWidth: $ratioCoefficient * goldSize(1, $level);
+  $columnWidthList: append($columnWidthList, $columnWidth, $separator: space);
+}
+
+@return $columnWidthList;
 }

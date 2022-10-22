@@ -1,68 +1,89 @@
-@use 'sass:map';
-@use 'sass:math';
-@use 'sass:list';
-@use 'styles/golden-ratio' as au;
+@use "sass:map";
+@use "sass:math";
+@use "sass:list";
+@use "styles/golden-ratio" as au;
 
 // ----COLORS----
-$color-primary: #2928a8;
-$color-secondary: #34b4f3;
+$color-primary: #1bd367;
+$color-secondary: #f12552;
 $color-tetriary: #2b71ed;
-$color-danger: rgb(250, 45, 73);
+$color-danger: #ff9b17;
 $color-white: #fff;
 $color-light-gray: #f6f6f6;
-$color-dark: #030321;
+$color-dark: #0F1031;
 
-$size-list: ('xs','sm','md','lg','xl','xxl');
+$size-list: (
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "xxl"
+);
 
 // ----BREAKPOINTS----
 $breakpoints: (
-  'xs': '0px',
-  'sm': '320px', 
-  'md': '701px', 
-  'lg': '1201px', 
-  'xl': '1441px', 
-  'xxl': '1801px' 
+  "xs": "0px",
+  "sm": "320px",
+  "md": "701px",
+  "lg": "1201px",
+  "xl": "1441px",
+  "xxl": "1801px",
 );
 
-// ----GRIDS----
+// --------GRIDS--------
 $global-column-ratios: (
-  'xs': (4, 0, 4),
-  'sm': (4, 0, 4), 
-  'md': (2, 0, 5), 
-  'lg': (1, 0, 0, 4), 
-  'xl': (2, 0, 0, 4), 
-  'xxl': (2, 0, 0, 5)   
+  "xs": (4, 0, 4),
+  "sm": (4, 0, 4),
+  "md": (2, 0, 5),
+  "lg": (1, 0, 0, 4),
+  "xl": (2, 0, 0, 4),
+  "xxl": (2, 0, 0, 5),
 );
 
-// ---- MAP GENERATOR FUNCTION ----
-// $grid-templates: ();
+$with-top-nav: "navbar navbar navbar" "l-margin main r-margin";
+$single-track: "navbar main r-margin";
+$double-track: "navbar main main r-margin";
+// CONSIDER ROWS
+//CONSIDER MAIN
 
-// @mixin create-map($size, $prop) {
-//   $grid-templates: map.merge(
-//     $grid-templates,
-//     (
-//       $size: $prop,
-//     )
-//   ) !global;
-// }
 
-// ---- SIZING ----
-$size-modules: ();
+$global-grid-areas: (
+  "xs": $with-top-nav,
+  "sm": $with-top-nav,
+  "md": $single-track,
+  "lg": $double-track,
+  "xl": $double-track,
+  "xxl": $double-track,
+);
 
-@for $index from 0 through -6 {
-  $size-modules: map.merge(
-    $size-modules,
-    (
-      #{math.abs($index)}: math.div(math.round(au.goldSize(10rem, $index)),10),
-    )
-  ) !global;
-}
+// ------ SIZING ------
+$base-rem: 16px;
 
+$size-au-modules: (
+  0: 0.25rem,
+  1: 0.5rem,
+  2: 0.75rem,
+  3: 1.25rem,
+  4: 2rem,
+  5: 3.25rem,
+  6: 5.25rem,
+  7: 8.5rem,
+  8: 13.75rem,
+  9: 22.25rem,
+);
+
+
+$font-weights: (
+  "thin": 300,
+  "regular": 500,
+  "bold": 800
+);
 
 // ----Z-DEPTH----
 $z-depth: (
-  'background': -10,
-  'base': 0,
-  'foreground': 10,
-  'pop-up': 20 
+  "background": -10,
+  "base": 0,
+  "foreground": 10,
+  "pop-up": 20,
 );

@@ -10,12 +10,12 @@
   height: 100vh;
   display: grid;
   z-index: map.get($z-depth, 'background');
-  
-  & > div {
-    border-right: 1px solid blue;
+
+  &>div {
+    border-right: 1px solid $color-secondary;
   }
 
-  & > div:last-child {
+  &>div:last-child {
     display: none;
   }
 
@@ -23,8 +23,8 @@
     @include breakpoint($size) {
       grid-template-columns: goldGridColumns(100vw, map.get($global-column-ratios, $size));
 
-      & > div:last-child {
-        @if $size == 'lg' {
+      &>div:last-child {
+        @if $size =='lg' {
           display: block;
         }
       }
