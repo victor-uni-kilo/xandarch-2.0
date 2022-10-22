@@ -1,0 +1,19 @@
+@use "sass:map";
+@use "./variables.scss" as *;
+///////////////////////////
+.intentionalyHigh {
+  height: 6000px;
+}
+///////////////////////////
+.pageWrapper {
+  background-color: #dddddd;
+}
+
+.color {
+  color: $color-primary;
+  height: 300px;
+}
+
+.projectContainer {
+  background-color: aqua;
+}

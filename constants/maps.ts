@@ -3,15 +3,15 @@ import { IPagesMap } from "types";
 export const PAGE_LINKS: IPagesMap[] = [
   {
     href: "/",
-    text: "about",
+    text: "About",
   },
   {
     href: "/projects",
-    text: "projects",
+    text: "Projects",
   },
   {
     href: "/photography",
-    text: "photography",
+    text: "Photography",
   },
 ];
 

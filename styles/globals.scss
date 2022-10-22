@@ -1,15 +1,24 @@
 @use "sass:map";
+@use "./mixins.scss" as *;
 @use "./resets.scss" as *;
 @use "./variables" as *;
 // RESETS
 
 html {
-  font-size: 10px;
+  font-size: $base-rem;
 }
 
 body {
-  width: 100vw;
-  font-size: map.get($size-modules, "1");
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: $color-dark;
+}
+
+//// GLOBAL FONTS ////
+h1 {
+  @include typography(5, "bold");
+}
+li {
+  @include typography(2, "bold");
 }

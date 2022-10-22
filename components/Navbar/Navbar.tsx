@@ -1,9 +1,12 @@
 import Link from "next/link";
+import cx from "classnames";
 import React, { FC, useState } from "react";
 import { IPagesMap } from "../../types/index";
-import cx from "classnames";
+
+import Logotype from "../../public/images/xa_logo.svg";
 
 import styles from "./Navbar.module.scss";
+import SvgComponent from "@components/SvgComponent/SvgComponent";
 
 interface INavbarProps {
   PAGE_LINKS: IPagesMap[];
@@ -20,7 +23,7 @@ const Navbar: FC<INavbarProps> = ({ PAGE_LINKS, currentRoute }) => {
       <div className={styles.accesibilityWidget}>Access</div>
 
       <div className={styles.navContainer}>
-        <div className={styles.logo}>Logotype</div>
+        <SvgComponent svg={Logotype} alt={"Home link"} className={styles.logotype} />
         <div className={styles.navList}>
           <ul>
             {PAGE_LINKS.map((link, index) => (

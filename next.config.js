@@ -8,19 +8,9 @@ module.exports = {
   },
   webpack(config) {
     config.module.rules.push({
-      test: /\.svg$/,
-      use: [
-        {
-          loader: "@svgr/webpack",
-          options: {
-            prettier: false,
-            svgo: true,
-            svgoConfig: {
-              plugins: [{ removeViewBox: false }],
-            },
-          },
-        },
-      ],
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ["@svgr/webpack"],
     });
 
     config.module.rules.push({
