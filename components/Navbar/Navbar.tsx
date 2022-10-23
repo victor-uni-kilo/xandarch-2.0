@@ -1,22 +1,26 @@
 import Link from "next/link";
 import cx from "classnames";
 import React, { FC, useState } from "react";
-import { IPagesMap } from "../../types/index";
+import { siteAreaEnum, SITE_AREA } from "../../types/index";
 
 import Logotype from "../../public/images/xa_logo.svg";
 
 import styles from "./Navbar.module.scss";
 import SvgComponent from "@components/SvgComponent/SvgComponent";
+import LocaleSwitch from "./LocaleSwitch/LocaleSwitch";
+import { DASHBOARD_LINKS, PAGE_LINKS } from "@constants/maps";
 
 interface INavbarProps {
-  PAGE_LINKS: IPagesMap[];
   currentRoute: string;
+  siteArea: siteAreaEnum;
 }
 
-const Navbar: FC<INavbarProps> = ({ PAGE_LINKS, currentRoute }) => {
+const Navbar: FC<INavbarProps> = ({ currentRoute, siteArea }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleActiveClass = { [styles.active]: isOpen };
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const pageLinks = siteArea === SITE_AREA.presentation ? PAGE_LINKS : DASHBOARD_LINKS;
 
   return (
     <nav className={styles.navbar}>
@@ -24,24 +28,25 @@ const Navbar: FC<INavbarProps> = ({ PAGE_LINKS, currentRoute }) => {
 
       <div className={styles.navContainer}>
         <SvgComponent svg={Logotype} alt={"Home link"} className={styles.logotype} />
+
         <div className={styles.navList}>
           <ul>
-            {PAGE_LINKS.map((link, index) => (
+            {pageLinks.map((link, index) => (
               <li key={`${link.text}-${index}`}>
-                {/* custom link had locale={router.locale} dunno why */}
                 <Link href={link.href} className={styles.listItem}>
                   <a
                     className={cx({
                       [styles.activeLink]: currentRoute === link.href,
                     })}
                   >
-                    {link.text}
+                    {link.text.en}
                   </a>
                 </Link>
               </li>
             ))}
           </ul>
         </div>
+        {siteArea === SITE_AREA.presentation && <LocaleSwitch />}
       </div>
 
       <div className={styles.navMenu}>

@@ -2,8 +2,12 @@ import type { NextPage } from "next";
 import { server } from "../../utils/apiConfig";
 import Link from "next/link";
 import styles from "@styles/Page.module.scss";
+import { useContext } from "react";
+import { PageLayoutContext } from "@components/Layout/Layout";
 
 const Projects: NextPage<any> = ({ projects }) => {
+  const [layoutState, setLayoutState] = useContext<any>(PageLayoutContext);
+
   return (
     <div className={styles.pageWrapper}>
       <h1 className={styles.color}>Hello from Projects</h1>
@@ -12,7 +16,7 @@ const Projects: NextPage<any> = ({ projects }) => {
           projects.map((project: any, index: any) => (
             <li key={`project-${index}`}>
               <Link href={`/projects/${project._id}`}>
-                <a>{project.title.en}</a>
+                <a>{project.title[layoutState.localeKey]}</a>
               </Link>
             </li>
           ))}

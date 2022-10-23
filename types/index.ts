@@ -8,17 +8,24 @@ export enum SITE_AREA {
   cms = "cms",
 }
 
+export type siteAreaEnum = `${SITE_AREA}`;
+
+export interface IBilingualObject {
+  en: string;
+  sr: string;
+}
+
 export interface IPagesMap {
-  text: string;
+  text: IBilingualObject;
   href: string;
 }
 
 export enum LOCALE {
-  en = "en-US",
-  sr = "sr-RS",
+  en = "en",
+  sr = "sr",
 }
 
-export type languageEnum = keyof typeof LOCALE;
+export type localeEnum = `${LOCALE}`;
 
 export enum MYME_TYPE {
   jpeg = "image/jpeg", // | "image/jpg"?
@@ -39,18 +46,9 @@ export type categoryType = `${CATEGORY_TYPE}`;
 
 // PROJECT SCHEMAS FOR MONGOOSE
 export interface IProjectSchema {
-  title: {
-    en: string;
-    sr: string;
-  };
-  caption: {
-    en: string;
-    sr: string;
-  };
-  description: {
-    en: string;
-    sr: string;
-  };
+  title: IBilingualObject;
+  caption: IBilingualObject;
+  description: IBilingualObject;
   area: number;
   projectDate: Date;
   completionDate: Date;
@@ -80,18 +78,9 @@ export interface ICategory extends ICategorySchema {
 //TYPES FOR FRONTEND
 export interface IProjectData {
   _id?: MongooseObjectId; //decision pending
-  title: {
-    en: string;
-    sr: string;
-  };
-  caption?: {
-    en: string;
-    sr: string;
-  };
-  description?: {
-    en: string;
-    sr: string;
-  };
+  title: IBilingualObject;
+  caption?: IBilingualObject;
+  description?: IBilingualObject;
   area?: number | null;
   projectDate?: Date | null;
   completionDate?: Date | null;
@@ -123,5 +112,11 @@ export interface IPageStaticProps {
 }
 
 export type FormContext = [IProjectData, Dispatch<SetStateAction<IProjectData>>] | null;
-export type PageTitle = string;
-export type LayoutContext = [PageTitle, Dispatch<SetStateAction<PageTitle>>] | null;
+
+export interface ILayoutState {
+  dynamicPageTitle: IBilingualObject | null;
+  localeKey: localeEnum;
+  siteArea: siteAreaEnum;
+}
+
+export type LayoutContext = [ILayoutState, Dispatch<SetStateAction<ILayoutState>>];
