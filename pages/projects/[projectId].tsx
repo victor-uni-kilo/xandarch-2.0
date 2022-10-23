@@ -8,10 +8,10 @@ import styles from "@styles/Page.module.scss";
 
 const Project: NextPage<any> = ({ project }) => {
   const projectId = project._id;
-  const [dynamicPageTitle, setDynamicPageTitle] = useContext<any>(PageLayoutContext);
+  const [layoutState, setLayoutState] = useContext<any>(PageLayoutContext);
 
   useEffect(() => {
-    setDynamicPageTitle(project.title.en);
+    setLayoutState({ ...layoutState, dynamicPageTitle: project.title.en });
   }, []);
 
   return (

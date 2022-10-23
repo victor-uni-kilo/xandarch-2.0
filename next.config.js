@@ -3,8 +3,8 @@ const STATIC_MEDIA_DIR = "static/media";
 
 module.exports = {
   i18n: {
-    locales: ["en-US", "sr-RS"],
-    defaultLocale: "en-US",
+    locales: ["en", "sr"],
+    defaultLocale: "en",
   },
   webpack(config) {
     config.module.rules.push({

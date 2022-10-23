@@ -3,37 +3,54 @@ import { IPagesMap } from "types";
 export const PAGE_LINKS: IPagesMap[] = [
   {
     href: "/",
-    text: "About",
+    text: {
+      en: "About",
+      sr: "O meni",
+    },
   },
   {
     href: "/projects",
-    text: "Projects",
+    text: {
+      en: "Projects",
+      sr: "Projekti",
+    },
   },
   {
     href: "/photography",
-    text: "Photography",
+    text: {
+      en: "Photography",
+      sr: "Fotografija",
+    },
   },
 ];
 
 export const DASHBOARD_LINKS: IPagesMap[] = [
   {
     href: "/dashboard",
-    text: "Dashboard",
+    text: {
+      en: "Dashboard",
+      sr: "Kontrolna Tabla",
+    },
   },
   {
     href: "/dashboard/projects",
-    text: "Project Manager",
+    text: {
+      en: "Project Manager",
+      sr: "Menadžer projekta",
+    },
   },
   {
     href: "/dashboard/uploads",
-    text: "Uploads",
+    text: {
+      en: "Uploads",
+      sr: "Otpremanja",
+    },
   },
   {
     href: "/dashboard/categories",
-    text: "Categories",
-  },
-  {
-    href: "/",
-    text: "Leave CMS",
+    text: {
+      en: "Categories",
+      sr: "Kategorije",
+    },
   },
 ];

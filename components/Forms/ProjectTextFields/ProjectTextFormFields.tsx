@@ -1,19 +1,23 @@
+import { PageLayoutContext } from "@components/Layout/Layout";
 import { Context, FC, useContext } from "react";
-import { FormContext, languageEnum } from "types";
+import { FormContext, localeEnum } from "types";
 
 interface IProjectTextFieldsProps {
-  language: languageEnum;
   context: Context<FormContext>; // not versatile enough
+  language: localeEnum;
 }
 
-const ProjectTextFields: FC<IProjectTextFieldsProps> = ({ language, context }) => {
+const ProjectTextFields: FC<IProjectTextFieldsProps> = ({ context, language }) => {
   const [contextState, setContextState] = useContext<any>(context);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const key = event.target.name;
     const value = event.target.value;
 
-    setContextState({ ...contextState, [key]: { ...contextState[key], [language]: value } });
+    setContextState({
+      ...contextState,
+      [key]: { ...contextState[key], [language]: value },
+    });
   };
 
   return (

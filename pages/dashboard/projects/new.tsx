@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { server } from "../../../utils/apiConfig";
-import { useState, createContext, SetStateAction, Dispatch } from "react";
-import { FormContext, IProjectData } from "types";
+import { useState, createContext } from "react";
+import { FormContext, IProjectData, LOCALE } from "types";
 import ProjectTextFields from "@components/Forms/ProjectTextFields/ProjectTextFormFields";
 import CategoryPicker from "@components/CategoryPicker/CategoryPicker";
 
@@ -9,7 +9,7 @@ import styles from "@styles/Page.module.scss";
 
 const initFormState: IProjectData = {
   title: {
-    en: "Temporary",
+    en: "",
     sr: "",
   },
   caption: {
@@ -79,14 +79,14 @@ const NewProject: NextPage<any> = ({ existingCategories }) => {
           <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit}>
             <fieldset>
               <legend>English Text</legend>
-              <ProjectTextFields language={"en"} context={ProjectFormContext} />
+              <ProjectTextFields context={ProjectFormContext} language={LOCALE.en} />
             </fieldset>
 
             <p>{formState.title.en}</p>
 
             <fieldset>
               <legend>Serbian Text</legend>
-              <ProjectTextFields language={"sr"} context={ProjectFormContext} />
+              <ProjectTextFields context={ProjectFormContext} language={LOCALE.sr} />
             </fieldset>
 
             <p>{formState.title.sr}</p>
