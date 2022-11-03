@@ -1,18 +1,14 @@
 import type { NextPage } from "next";
 import { server } from "@utils/apiConfig";
 
-import { useContext, useEffect } from "react";
-import { PageLayoutContext } from "@components/Layout/Layout";
-
 import styles from "@styles/Page.module.scss";
+import { setPageTitle } from "store/pageSlice";
+import { wrapper } from "store";
+import { IBilingualObject, IProject } from "types";
+import { isContext } from "vm";
 
 const Project: NextPage<any> = ({ project }) => {
   const projectId = project._id;
-  const [layoutState, setLayoutState] = useContext<any>(PageLayoutContext);
-
-  useEffect(() => {
-    setLayoutState({ ...layoutState, dynamicPageTitle: project.title.en });
-  }, []);
 
   return (
     <div className={styles.pageWrapper}>
@@ -23,32 +19,39 @@ const Project: NextPage<any> = ({ project }) => {
 
 export default Project;
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = async ({ locales }: { locales: string[] }) => {
   const projects = await fetch(`${server}/api/db/projects`).then(response => response.json());
-  const paths = projects.map((project: any) => {
-    const projectId = encodeURI(project._id);
-    return {
-      // URL ENCODE
-      params: { projectId: projectId },
-    };
+
+  let paths: any = [];
+
+  projects.forEach((project: IProject) => {
+    for (const locale of locales) {
+      paths.push({
+        params: {
+          projectId: project._id,
+        },
+        locale,
+      });
+    }
   });
 
-  console.log("paths", paths);
   return {
     paths: paths,
     fallback: false,
   };
 };
 
-export const getStaticProps = async (context: { params: { projectId: any } }) => {
-  const id = context.params.projectId;
+export const getStaticProps = wrapper.getStaticProps(store => async context => {
+  const id = context?.params?.projectId;
   const project = await fetch(`${server}/api/db/projects/${id}`, {
     method: "GET",
   }).then(response => response.json());
+
+  store.dispatch(setPageTitle(project.title[context.locale as keyof IBilingualObject]));
 
   return {
     props: {
       project,
     },
   };
-};
+});

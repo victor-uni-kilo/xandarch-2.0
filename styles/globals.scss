@@ -17,8 +17,9 @@ body {
 
 //// GLOBAL FONTS ////
 h1 {
-  @include typography(5, "bold");
+  @include typography(map.get($global-typography, "h1"));
 }
+
 li {
-  @include typography(2, "bold");
+  @include typography(map.get($global-typography, "li"));
 }

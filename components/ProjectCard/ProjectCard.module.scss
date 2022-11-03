@@ -1,0 +1,56 @@
+@use "sass:map";
+@use "styles/golden-ratio" as *;
+@use "styles/variables" as *;
+@use "styles/mixins" as *;
+
+.card {
+  width: 100%;
+  display: flex;
+  // border: 1px solid blue;
+}
+
+
+.heroContainer {
+  width: 50%;
+  height: 35vh;
+  background-color: pink;
+}
+
+.textContainer {
+  width: 50%;
+
+}
+
+.projectInfo {
+  width: 100%;
+  display: flex;
+}
+
+
+
+.titleLink,
+.mainText {
+  width: goldSize(100%, 1);
+  padding-left: map.get($size-au-modules, 4);
+  padding-right: map.get($size-au-modules, 5);
+}
+
+.titleLink {
+  @include typography(map.get($typography, "titleLink"));
+  margin-bottom: goldSize(100%, 7);
+}
+
+.mainText {
+  padding-right: goldSize(100%, 6);
+  // background-color: limegreen;
+}
+
+.caption {
+  @include typography(map.get($typography, "caption"));
+}
+
+
+.sideText {
+  width: goldSize(100%, 2);
+  // background-color: orange;
+}

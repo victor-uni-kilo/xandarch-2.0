@@ -4,50 +4,59 @@ import validators from "./validators";
 import uniqueValidator from "mongoose-unique-validator";
 
 /// UNFORTUNATE ADDITIONAL SCHEMAS
-const titleSchema = new mongoose.Schema({
-  en: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: [2, "Title can't be shorter than 2 characters"],
-    maxLength: [32, "Title can't be longer than 32 characters"],
-    validate: [validators.noSpecialChars, validators.noEmptyString],
+const titleSchema = new mongoose.Schema(
+  {
+    en: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: [2, "Title can't be shorter than 2 characters"],
+      maxLength: [32, "Title can't be longer than 32 characters"],
+      validate: [validators.noSpecialChars, validators.noEmptyString],
+    },
+    sr: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: [2, "Title can't be shorter than 2 characters"],
+      maxLength: [32, "Title can't be longer than 32 characters"],
+      validate: [validators.noSpecialChars, validators.noEmptyString],
+    },
   },
-  sr: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: [2, "Title can't be shorter than 2 characters"],
-    maxLength: [32, "Title can't be longer than 32 characters"],
-    validate: [validators.noSpecialChars, validators.noEmptyString],
-  },
-});
+  { _id: false },
+);
 
-const captionSchema = new mongoose.Schema({
-  en: {
-    type: String,
-    required: true,
-    validate: validators.noSpecialChars,
+const captionSchema = new mongoose.Schema(
+  {
+    en: {
+      type: String,
+      required: true,
+      validate: validators.noSpecialChars,
+    },
+    sr: {
+      type: String,
+      required: true,
+      validate: validators.noSpecialChars,
+    },
   },
-  sr: {
-    type: String,
-    required: true,
-    validate: validators.noSpecialChars,
-  },
-});
+  { _id: false },
+);
 
-const descriptionSchema = new mongoose.Schema({
-  en: {
-    type: String,
-    required: true,
-    validate: validators.noSpecialChars,
+const descriptionSchema = new mongoose.Schema(
+  {
+    en: {
+      type: String,
+      required: true,
+      validate: validators.noSpecialChars,
+    },
+    sr: {
+      type: String,
+      required: true,
+      validate: validators.noSpecialChars,
+    },
   },
-  sr: {
-    type: String,
-    required: true,
-    validate: validators.noSpecialChars,
-  },
-});
+  { _id: false },
+);
 
 /// MAIN SCHEMA for MODEL CREATION
 const projectSchema = new mongoose.Schema<IProjectSchema>({

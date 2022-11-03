@@ -20,6 +20,11 @@ export interface IPagesMap {
   href: string;
 }
 
+export interface IDashboardPagesMap {
+  text: string;
+  href: string;
+}
+
 export enum LOCALE {
   en = "en",
   sr = "sr",
@@ -58,7 +63,7 @@ export interface IProjectSchema {
 }
 
 export interface ICategorySchema {
-  category: {
+  text: {
     en: string;
     sr: string;
   };
@@ -79,8 +84,8 @@ export interface ICategory extends ICategorySchema {
 export interface IProjectData {
   _id?: MongooseObjectId; //decision pending
   title: IBilingualObject;
-  caption?: IBilingualObject;
-  description?: IBilingualObject;
+  caption: IBilingualObject;
+  description: IBilingualObject;
   area?: number | null;
   projectDate?: Date | null;
   completionDate?: Date | null;

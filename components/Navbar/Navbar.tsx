@@ -1,7 +1,7 @@
 import Link from "next/link";
 import cx from "classnames";
 import React, { FC, useState } from "react";
-import { siteAreaEnum, SITE_AREA } from "../../types/index";
+import { IBilingualObject, localeEnum, siteAreaEnum, SITE_AREA } from "../../types/index";
 
 import Logotype from "../../public/images/xa_logo.svg";
 
@@ -13,9 +13,10 @@ import { DASHBOARD_LINKS, PAGE_LINKS } from "@constants/maps";
 interface INavbarProps {
   currentRoute: string;
   siteArea: siteAreaEnum;
+  localeKey: localeEnum;
 }
 
-const Navbar: FC<INavbarProps> = ({ currentRoute, siteArea }) => {
+const Navbar: FC<INavbarProps> = ({ currentRoute, siteArea, localeKey }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleActiveClass = { [styles.active]: isOpen };
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -39,7 +40,7 @@ const Navbar: FC<INavbarProps> = ({ currentRoute, siteArea }) => {
                       [styles.activeLink]: currentRoute === link.href,
                     })}
                   >
-                    {link.text.en}
+                    {typeof link.text === "string" ? link.text : link.text[localeKey]}
                   </a>
                 </Link>
               </li>

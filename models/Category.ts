@@ -4,7 +4,7 @@ import uniqueValidator from "mongoose-unique-validator";
 import { CATEGORY_TYPE, ICategorySchema } from "types";
 
 const categorySchema = new mongoose.Schema<ICategorySchema>({
-  category: {
+  text: {
     en: {
       type: String,
       required: true,
