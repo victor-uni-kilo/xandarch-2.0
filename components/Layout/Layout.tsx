@@ -1,16 +1,7 @@
 import React, { createContext, FC, ReactNode, useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import {
-  IBilingualObject,
-  IDashboardPagesMap,
-  ILayoutState,
-  IPagesMap,
-  LayoutContext,
-  LOCALE,
-  localeEnum,
-  SITE_AREA,
-} from "types";
+import { IBilingualObject, localeEnum, SITE_AREA } from "types";
 import { PAGE_LINKS, DASHBOARD_LINKS } from "../../constants/maps";
 
 import GridLines from "../GridLines/GridLines";
@@ -21,22 +12,13 @@ import styles from "./Layout.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectPage, setLocaleKey, setPageTitle, setSiteArea } from "store/pageSlice";
 
-// const initFormState: ILayoutState = {
-//   dynamicPageTitle: null,
-//   localeKey: "en",
-//   siteArea: SITE_AREA.presentation,
-// };
-
 interface ILayoutProps {
   children: ReactNode;
 }
 
-export const PageLayoutContext = createContext<LayoutContext | null>(null);
-
 const Layout: FC<ILayoutProps> = ({ children }) => {
   const dispatch = useDispatch();
   const pageData = useSelector(selectPage);
-  console.log("PAGE_DATA: ", pageData);
 
   const router = useRouter();
   const currentRoute = router.pathname;

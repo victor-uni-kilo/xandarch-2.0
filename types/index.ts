@@ -70,6 +70,11 @@ export interface ICategorySchema {
   type: categoryType;
 }
 
+export interface IImageDataSchema {
+  refId: MongooseObjectId;
+  alt: IBilingualObject;
+  caption: IBilingualObject;
+}
 // MONGOOSE ADDS IDs so...
 
 export interface IProject extends IProjectSchema {

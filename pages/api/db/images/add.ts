@@ -11,17 +11,13 @@ addImageHandler.use(middleware);
 
 addImageHandler.post(async (req: any, res: any) => {
   const files = req.files;
-  const body = req.body;
 
   console.log("CONNECTING TO MONGO");
   await connectToMongo();
   console.log("CONNECTED TO MONGO");
 
-  const connection = mongoose.connection;
-
-  const bucket = new mongoose.mongo.GridFSBucket(connection.db);
-
-  console.log("FILES", files);
+  const db = mongoose.connection.db;
+  const bucket = new mongoose.mongo.GridFSBucket(db);
 
   try {
     Object.keys(files).forEach(key => {
