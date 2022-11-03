@@ -16,6 +16,6 @@
     // background-color: $color-primary;
 
     & a {
-        @include typography(2, "thin")
+        @include typography(map.get($typography, "localeSwitch"));
     }
 }

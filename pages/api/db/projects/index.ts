@@ -10,8 +10,7 @@ const projectsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     console.log("FETCHING DOCUMENTs");
-    const allProjects = await Project.find({});
-    // .populate([{ path: "category", model: Category }]);
+    const allProjects = await Project.find().populate([{ path: "categories", model: Category }]);
     // THIS NEEDS TO WORK FOR ALL FOUND ITEMS
 
     console.log("FETCHED DOCUMENTs", allProjects);

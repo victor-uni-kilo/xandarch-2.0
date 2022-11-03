@@ -87,3 +87,17 @@ $z-depth: (
   "foreground": 10,
   "pop-up": 20,
 );
+
+// ------ SIZING ------
+
+$global-typography: (
+  "h1": (5, "bold"),
+  "h2": (4, "bold"),
+  "li": (2, "bold"),
+);
+
+$typography: (
+  "titleLink": (5, "bold"),
+  "caption": (3, "regular"),
+  "localeSwitch": (2, "thin"),
+);

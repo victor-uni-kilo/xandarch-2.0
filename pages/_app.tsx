@@ -1,16 +1,21 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout/Layout";
 // import { UserProvider } from "@auth0/nextjs-auth0";
+import { wrapper } from "store";
+import { Provider } from "react-redux";
+import Layout from "../components/Layout/Layout";
+import { FC } from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: FC<AppProps> = ({ Component, ...rest }) => {
+  const { store, props } = wrapper.useWrappedStore(rest);
+
   return (
-    // <UserProvider>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-    // {/* </UserProvider> */}
+    <Provider store={store}>
+      <Layout>
+        <Component {...props.pageProps} />
+      </Layout>
+    </Provider>
   );
-}
+};
 
 export default MyApp;

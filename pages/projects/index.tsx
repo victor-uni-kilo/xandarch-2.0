@@ -1,33 +1,34 @@
 import type { NextPage } from "next";
 import { server } from "../../utils/apiConfig";
-import Link from "next/link";
+import { IProject } from "types";
+import ProjectCard from "@components/ProjectCard/ProjectCard";
+
 import styles from "@styles/Page.module.scss";
-import { useContext } from "react";
-import { PageLayoutContext } from "@components/Layout/Layout";
 
-const Projects: NextPage<any> = ({ projects }) => {
-  const [layoutState, setLayoutState] = useContext<any>(PageLayoutContext);
+interface IProjectsPageProps {
+  projects: IProject[];
+  notFound?: boolean;
+}
 
+const Projects: NextPage<IProjectsPageProps> = ({ projects, notFound }) => {
   return (
     <div className={styles.pageWrapper}>
-      <h1 className={styles.color}>Hello from Projects</h1>
-      <ul>
-        {projects &&
-          projects.map((project: any, index: any) => (
+      {projects && (
+        <ul>
+          {projects.map((project: IProject, index: number) => (
             <li key={`project-${index}`}>
-              <Link href={`/projects/${project._id}`}>
-                <a>{project.title[layoutState.localeKey]}</a>
-              </Link>
+              <ProjectCard project={project} />
             </li>
           ))}
-        {!projects && <p>No Projects Added Yet</p>}
-      </ul>
+        </ul>
+      )}
+      {notFound && <h2>No Projects Added Yet</h2>}
     </div>
   );
 };
 
-export async function getServerSideProps() {
-  const projects = await fetch(`${server}/api/db/projects`, {
+export async function getStaticProps() {
+  const projects: IProject[] = await fetch(`${server}/api/db/projects`, {
     method: "GET",
   }).then(response => response.json());
 

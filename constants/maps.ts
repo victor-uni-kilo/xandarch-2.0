@@ -1,4 +1,4 @@
-import { IPagesMap } from "types";
+import { IDashboardPagesMap, IPagesMap } from "types";
 
 export const PAGE_LINKS: IPagesMap[] = [
   {
@@ -24,33 +24,21 @@ export const PAGE_LINKS: IPagesMap[] = [
   },
 ];
 
-export const DASHBOARD_LINKS: IPagesMap[] = [
+export const DASHBOARD_LINKS: IDashboardPagesMap[] = [
   {
     href: "/dashboard",
-    text: {
-      en: "Dashboard",
-      sr: "Kontrolna Tabla",
-    },
+    text: "Dashboard",
   },
   {
     href: "/dashboard/projects",
-    text: {
-      en: "Project Manager",
-      sr: "Menadžer projekta",
-    },
+    text: "Project Manager",
   },
   {
     href: "/dashboard/uploads",
-    text: {
-      en: "Uploads",
-      sr: "Otpremanja",
-    },
+    text: "Uploads",
   },
   {
     href: "/dashboard/categories",
-    text: {
-      en: "Categories",
-      sr: "Kategorije",
-    },
+    text: "Categories",
   },
 ];
