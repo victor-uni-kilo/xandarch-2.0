@@ -16,7 +16,6 @@
       grid-template-columns: goldGridColumns(100vw, map.get($global-column-ratios, $size));
       grid-template-areas: map.get($global-grid-areas, $size);
     }
-    background-color: rgba(128, 128, 128, 0.171);
   }
 }
 

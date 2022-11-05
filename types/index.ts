@@ -70,11 +70,6 @@ export interface ICategorySchema {
   type: categoryType;
 }
 
-export interface IImageDataSchema {
-  refId: MongooseObjectId;
-  alt: IBilingualObject;
-  caption: IBilingualObject;
-}
 // MONGOOSE ADDS IDs so...
 
 export interface IProject extends IProjectSchema {
@@ -100,6 +95,13 @@ export interface IProjectData {
   heroImage?: IImage | null;
 }
 
+export interface IImage {
+  _id: MongooseObjectId;
+  alt?: string;
+  filename?: string;
+  // caption: string;
+}
+
 export interface ICategories {
   [CATEGORY_TYPE.byService]: ICategory[];
   [CATEGORY_TYPE.byType]: ICategory[];
@@ -107,12 +109,12 @@ export interface ICategories {
 }
 //////////////////////////////////////////////
 //???????????????????????????????????????????
-export interface IImage {
-  _id?: MongooseObjectId;
-  name: string;
-  alt: string;
-  file: MongooseObjectId; //reference to the image
-  // mimetype: MIMEenumTYPE
+export interface IFsFilesData {
+  _id: MongooseObjectId;
+  length: number;
+  chunkSize: number;
+  uploadDate: Date;
+  filename: string;
 }
 //////////////////////////////////////////////
 

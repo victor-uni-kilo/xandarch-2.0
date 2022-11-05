@@ -23,7 +23,7 @@ export const PageSlice = createSlice({
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
-      // TODO - handle client side state override
+      // handle client side state override
       if (!action.payload.page.pageTitle) {
         return state;
       }

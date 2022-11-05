@@ -1,7 +1,7 @@
 import Link from "next/link";
 import cx from "classnames";
 import React, { FC, useState } from "react";
-import { IBilingualObject, localeEnum, siteAreaEnum, SITE_AREA } from "../../types/index";
+import { localeEnum, siteAreaEnum, SITE_AREA } from "../../types/index";
 
 import Logotype from "../../public/images/xa_logo.svg";
 

@@ -33,6 +33,31 @@ imageHandler.get(async (req: any, res: any) => {
   }
 });
 
+imageHandler.delete(async (req: any, res: any) => {
+  const imageId = new mongoose.Types.ObjectId(req.query.imageId);
+
+  console.log("CONNECTING TO MONGO");
+  await connectToMongo();
+  console.log("CONNECTED TO MONGO");
+
+  const db = mongoose.connection.db;
+  const bucket = new mongoose.mongo.GridFSBucket(db);
+
+  try {
+    const file = await bucket.find({ _id: imageId });
+
+    file.toArray((err, file) => {
+      if (!file || file.length === 0) {
+        console.log(file);
+        return res.status(404).json({ err: "File does not exist" });
+      }
+      bucket.openDownloadStream(imageId).pipe(res);
+    });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 export const config = {
   api: {
     bodyParser: false,

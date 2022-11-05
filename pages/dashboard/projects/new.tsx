@@ -119,12 +119,9 @@ const NewProject: NextPage<any> = ({ existingCategories }) => {
 
             <fieldset>
               <legend>Categories</legend>
-              <CategoryPicker existingCategories={existingCategories} />
+              {/* <CategoryPicker existingCategories={existingCategories} /> */}
             </fieldset>
 
-            <fieldset>
-              <legend>Images</legend>
-            </fieldset>
             <input type="submit" value="Submit" />
           </form>
         </ProjectFormContext.Provider>

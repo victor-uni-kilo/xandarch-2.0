@@ -5,7 +5,6 @@ import styles from "@styles/Page.module.scss";
 import { setPageTitle } from "store/pageSlice";
 import { wrapper } from "store";
 import { IBilingualObject, IProject } from "types";
-import { isContext } from "vm";
 
 const Project: NextPage<any> = ({ project }) => {
   const projectId = project._id;
