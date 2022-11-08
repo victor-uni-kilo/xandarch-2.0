@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { server } from "../../utils/apiConfig";
+import { server } from "../../utils/db/apiConfig";
 import { ChangeEvent, useEffect, useState } from "react";
 
 import { IFsFilesData } from "types";
@@ -9,9 +9,11 @@ import styles from "@styles/Page.module.scss";
 import { wrapper } from "store";
 import { setFsFiles } from "store/fsFilesSlice";
 import { useRouter } from "next/router";
+import { useFsFilesImages } from "@utils/swr";
+import { fetchAllImagesSWR, fetchImageUrl } from "@utils/swr/fetchers/fetchImage";
 
 interface IUploadPageProps {
-  fsFiles: IFsFilesData[];
+  fsFiles: string[];
 }
 
 const Uploads: NextPage<IUploadPageProps> = ({ fsFiles }) => {
@@ -22,11 +24,10 @@ const Uploads: NextPage<IUploadPageProps> = ({ fsFiles }) => {
   const router = useRouter();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const fetchImage = async (id: string) => {
-    const imageBlob = await fetch(`${server}/api/db/images/${id}`).then(res => res.blob());
-    const imageObjectURL = URL.createObjectURL(imageBlob);
-    return imageObjectURL;
-  };
+  // const { user, isLoading, isError } = useFsFilesImages();
+
+  // if (isLoading) return "isLoading...";
+  // if (isError) return "Error";
 
   const refreshData = async () => {
     router.replace(router.asPath);
@@ -35,7 +36,7 @@ const Uploads: NextPage<IUploadPageProps> = ({ fsFiles }) => {
   };
 
   const handleSubmit = async (event: any) => {
-    // event.preventDefault();
+    event.preventDefault();
 
     const successStatus = await fetch(`${server}/api/db/images/add`, {
       method: "POST",
@@ -50,9 +51,8 @@ const Uploads: NextPage<IUploadPageProps> = ({ fsFiles }) => {
 
   useEffect(() => {
     setIsRefreshing(false);
-    console.log("fsFiles in useEffect", fsFiles);
-    const imageIds = fsFiles.map((file: any) => fetchImage(file._id));
-    Promise.all(imageIds).then(blobs => setImagesUrl(blobs));
+
+    setImagesUrl(fsFiles);
   }, []);
 
   ///// HANDLERS /////
@@ -140,9 +140,7 @@ const Uploads: NextPage<IUploadPageProps> = ({ fsFiles }) => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-  const fsFiles: IFsFilesData[] = await fetch(`${server}/api/db/images`, {
-    method: "GET",
-  }).then(response => response.json());
+  const fsFiles = await fetchAllImagesSWR();
 
   await store.dispatch(setFsFiles(fsFiles)); // Not Using it right now
 
@@ -152,5 +150,17 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async () =
     },
   };
 });
+
+// export const getServerSideProps = async () => {
+//   const fsFiles = await fetchAllImagesSWR();
+
+//   // await store.dispatch(setFsFiles(fsFiles)); // Not Using it right now
+
+//   return {
+//     props: {
+//       fsFiles,
+//     },
+//   };
+// };
 
 export default Uploads;

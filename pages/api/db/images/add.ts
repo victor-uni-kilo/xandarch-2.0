@@ -1,4 +1,4 @@
-import connectToMongo from "@utils/connectDB";
+import connectToMongo from "@utils/db/connectDB";
 import mongoose from "mongoose";
 import fs from "fs";
 import { NextApiRequest, NextApiResponse } from "next";

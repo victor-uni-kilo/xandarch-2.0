@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectToMongo from "@utils/connectDB";
+import connectToMongo from "@utils/db/connectDB";
 import Category from "models/Category";
 
 const categoriesHandler = async (req: NextApiRequest, res: NextApiResponse) => {

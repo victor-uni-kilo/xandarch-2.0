@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { server } from "../../utils/apiConfig";
+import { server } from "../../utils/db/apiConfig";
 import { IProject } from "types";
 import ProjectCard from "@components/ProjectCard/ProjectCard";
 

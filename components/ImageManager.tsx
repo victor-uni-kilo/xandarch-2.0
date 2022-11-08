@@ -1,7 +1,4 @@
-import fetchImage from "@utils/fetchImage";
-import React, { FC, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectfileList } from "store/fsFilesSlice";
+import React, { FC } from "react";
 
 import styles from "./ImageManager.module.scss";
 

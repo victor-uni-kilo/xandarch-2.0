@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { server } from "@utils/apiConfig";
+import { server } from "@utils/db/apiConfig";
 
 import styles from "@styles/Page.module.scss";
 import { setPageTitle } from "store/pageSlice";

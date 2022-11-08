@@ -1,5 +1,5 @@
 // import { NextApiRequest, NextApiResponse } from "next";
-import connectToMongo from "@utils/connectDB";
+import connectToMongo from "@utils/db/connectDB";
 import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import middleware from "@middleware/index";

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectToMongo from "@utils/connectDB";
+import connectToMongo from "@utils/db/connectDB";
 import Project from "models/Project";
 
 const addProjectHandler = async (req: NextApiRequest, res: NextApiResponse) => {
