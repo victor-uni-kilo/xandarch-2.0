@@ -132,3 +132,17 @@ export interface ILayoutState {
 }
 
 export type LayoutContext = [ILayoutState, Dispatch<SetStateAction<ILayoutState>>];
+
+/////////////////////////
+
+export interface IFileUploadMap {
+  formDataId: string;
+  localUrl: string;
+}
+
+///SWR///////////////////////
+
+export interface IGetFsFiles {
+  success: boolean;
+  fsFiles: IFsFilesData[];
+}

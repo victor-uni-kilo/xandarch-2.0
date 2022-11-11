@@ -1,9 +1,10 @@
 import React, { FC } from "react";
+import { IFileUploadMap } from "types";
 
 import styles from "./ImageManager.module.scss";
 
 interface IImagePreviewProps {
-  urls: {}[] | [];
+  urls: IFileUploadMap[] | string[];
   imageCallback?: any;
 }
 
@@ -14,7 +15,7 @@ const ImageManager: FC<IImagePreviewProps> = ({ urls, imageCallback }) => {
         urls.map((imageUrl: any, index: number) => {
           return (
             <div className={styles.imageContainer} key={`image-${index}`}>
-              <img src={typeof imageUrl === "string" ? imageUrl : imageUrl.blob} alt="#" />
+              <img src={typeof imageUrl === "string" ? imageUrl : imageUrl.localUrl} alt="#" />
               <button
                 className={styles.tempButton}
                 type="button"
