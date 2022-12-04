@@ -1,18 +1,20 @@
 import { FC } from "react";
 import Link from "next/link";
-import { IBilingualObject, IProjectData } from "types";
+import { IBilingualObject, ICategory, IProject } from "types";
 import { selectPage } from "store/pageSlice";
 import { useSelector } from "react-redux";
 
 import styles from "./ProjectCard.module.scss";
 
 interface IProjectCardProps {
-  project: IProjectData;
+  project: IProject;
 }
 
 const ProjectCard: FC<IProjectCardProps> = ({ project }) => {
   const pageData = useSelector(selectPage);
   const key = pageData.localeKey as keyof IBilingualObject;
+  // @TODO Fix Types
+  const categories = project.categories as unknown as ICategory[];
 
   return (
     <div className={styles.card}>
@@ -34,9 +36,9 @@ const ProjectCard: FC<IProjectCardProps> = ({ project }) => {
           </div>
 
           <div className={styles.sideText}>
-            {project.categories && (
+            {categories && (
               <ul>
-                {project.categories.map((category, index) => (
+                {categories.map((category, index) => (
                   <li key={`category-${index}`}>{category.text[key].toUpperCase()}</li>
                 ))}
               </ul>
