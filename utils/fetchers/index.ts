@@ -18,13 +18,6 @@ export const fetchFsFiles = async (): Promise<IFsFilesData[]> => {
   return fsFiles;
 };
 
-// export const fetcher = (...args) => fetch(...args).then(res => res.json());
-// `${server}/api/db/images`
-
-export const fsFilesFetcher = (url: string) =>
-  fetch(url, { method: "GET" }).then(res => res.json());
-////////
-
 export const fetchAllImageUrls = async (): Promise<string[]> => {
   const fsImageUrls = await fetch(`${server}/api/db/images`, {
     method: "GET",
@@ -38,3 +31,7 @@ export const fetchAllImageUrls = async (): Promise<string[]> => {
     });
   return fsImageUrls;
 };
+
+//////// SWR FETCHERS
+export const fsFilesFetcher = (url: string) =>
+  fetch(url, { method: "GET" }).then(res => res.json());

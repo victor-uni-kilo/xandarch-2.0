@@ -1,32 +1,36 @@
 // FRAMEWORK
 import type { NextPage } from "next";
-import { server } from "../../utils/db/apiConfig";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 // COMPONENTS
-import ImageManager from "@components/ImageManager";
 import ImageUploader from "@components/Forms/ImageUploader/ImageUploader";
 // UTILS
 import useSWR from "swr";
 
 // RTK STORE
 import { wrapper } from "store";
-import { setFsFiles } from "store/fsFilesSlice";
 // TYPES
 import { IFsFilesData, IGetFsFiles } from "types";
 // STYLES
 import styles from "@styles/Page.module.scss";
+import { server } from "@utils/db/apiConfig";
 import { fetchFsFiles, fsFilesFetcher } from "@utils/fetchers";
+import { setFsFiles } from "store/fsFilesSlice";
+import ImageManager from "@components/ImageManager";
 
 interface IUploadPageProps {
   fsFilesSSP: IFsFilesData[];
 }
 
-const Uploads: NextPage = () => {
+const Uploads: NextPage<IUploadPageProps> = ({ fsFilesSSP }) => {
+  // SWR IMPLEMENTATION
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { data, isValidating, error } = useSWR<IFsFilesData[]>(
     `${server}/api/db/images`,
     fsFilesFetcher,
+    // {
+    //   initialData: fsFilesSSP,
+    // },
   );
 
   let dbImagePaths: string[] = [];
@@ -39,34 +43,22 @@ const Uploads: NextPage = () => {
   if (data) {
     console.log("fuu", data);
 
-    // dbImagePaths = data.map(file => `/api/db/images/${file._id.toString()}`);
-
-    //// HOW TO APPEND?
+    dbImagePaths = data.map(file => `/api/db/images/${file._id.toString()}`);
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-  //// ONE WAY OF PERSISTING IMAGE DATA
-  // useEffect(() => {
-  //   window.localStorage.setItem("UPLOAD_PAGE_STATE", JSON.stringify(dbImagePaths));
-  // }, [data]);
+  console.log("Uploads:dbImagePath", dbImagePaths);
 
-  // useEffect(() => {
-  //   const localStorageData = window.localStorage.getItem("UPLOAD_PAGE_STATE");
-  //   if (localStorageData !== null) dbImagePaths = JSON.parse(localStorageData);
-  // }, []);
+  ///////////////////////////////////////////////////////////////////
 
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-
-  // const handleDeleteImage = (imageUrl: string) => {};
+  // const getBlobsFromData = (prevImageList, nextImageList) => {
+  // const dbImagePaths = fsFilesSSP.map(file => `/api/db/images/${file._id.toString()}`);
+  // };
 
   return (
     <div className={styles.pageWrapper}>
-      <h1 className={styles.color}>Hello from Uploads</h1>
+      <h1 className={styles.color}>Hello from Uploads:</h1>
       <section>
+        <h2>Add Images</h2>
         <ImageUploader />
       </section>
 
@@ -78,16 +70,17 @@ const Uploads: NextPage = () => {
   );
 };
 
-// export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-//   const fsFilesSSP = await fetchFsFiles();
+export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
+  const fsFilesSSP = await fetchFsFiles();
 
-//   await store.dispatch(setFsFiles(fsFilesSSP));
+  await store.dispatch(setFsFiles(fsFilesSSP));
+  console.log("SSP - store", store);
 
-//   return {
-//     props: {
-//       fsFilesSSP,
-//     },
-//   };
-// });
+  return {
+    props: {
+      fsFilesSSP,
+    },
+  };
+});
 
 export default Uploads;

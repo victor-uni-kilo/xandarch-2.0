@@ -1,7 +1,9 @@
 import ImageManager from "@components/ImageManager";
 import { server } from "@utils/db/apiConfig";
+import { fsFilesFetcher } from "@utils/fetchers";
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { IFileUploadMap } from "types";
+import useSWR from "swr";
+import { IFileUploadMap, IFsFilesData } from "types";
 
 const ImageUploader: FC = () => {
   const [selectedImagesData, setSelectedImagesData] = useState<IFileUploadMap[]>([]);
@@ -18,7 +20,6 @@ const ImageUploader: FC = () => {
 
     if (selectedFiles) {
       fileMapsArray = Array.from(selectedFiles).map(file => {
-        //// Create same keys for formData and SelectedImages;
         const formDataId = "id" + Math.random().toString(16).slice(2);
         const localUrl = URL.createObjectURL(file);
         formData.append(formDataId, file);
