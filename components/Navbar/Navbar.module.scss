@@ -25,14 +25,14 @@
 .navContainer {
   position: relative;
   right: 0;
-  top: goldSize(100vh, 6);
+  top: $page-top-offset;
   height: goldSize(100vh, 2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
 
-  padding-right: map.get($size-au-modules, 2);
+  padding-right: map.get($sizing, 2);
 
   text-transform: uppercase;
   text-align: right;

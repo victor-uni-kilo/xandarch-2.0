@@ -1,0 +1,101 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use "sass:map";
+
+$fill-color: red;
+$border-color: $color-primary;
+$border-width: 1px;
+$edge-size: 0.75em;
+//CLIP PATHS
+$clip-path-base: polygon(0% 0%,
+    100% 0,
+    100% calc(100% - $edge-size),
+    calc(100% - $edge-size) 100%,
+    0 100%,
+    0% $edge-size);
+;
+$clip-path-frame: polygon($border-width $border-width, calc($edge-size + $border-width * 0.5) $border-width, calc(100% - $border-width) $border-width, calc(100% - $border-width) calc(100% - calc($edge-size + $border-width * 0.5)), calc(100% - calc($edge-size + $border-width * 0.5)) calc(100% - $border-width), $border-width calc(100% - $border-width));
+
+.button {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding: map.get($sizing, 1) map.get($sizing, 1);
+
+  text-transform: uppercase;
+  @include typography(map.get($typography, "button"));
+
+}
+
+.buttonText {
+  color: $color-primary;
+  &::after {
+    background: $color-light-gray;
+  }
+  &[data-active=true] {
+    color: lightblue;
+  }
+}
+
+.buttonOutlined {
+  line-height: 100%;
+
+  clip-path: $clip-path-base;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $border-color;
+    z-index: -2;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: $clip-path-frame;
+    transition: clip-path 500ms;
+    background: $color-light-gray;
+  }
+
+  color: $color-primary;
+  &[data-active=true] {
+    color: pink;
+  }
+}
+
+.buttonContained {
+  line-height: 100%;
+
+  clip-path: $clip-path-base;
+  transition: transform 500ms;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $border-color;
+    z-index: -2;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: $clip-path-frame;
+    transition: clip-path 500ms;
+  }
+  background-color: $color-primary;
+  &:hover {
+    transition: transform 500ms;
+    transform: translateX(1rem);
+    box-shadow: -12px 0 20px -12px red;
+  }
+  &[data-active=true] {
+    color: greenyellow;
+  }
+}

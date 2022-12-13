@@ -1,14 +1,14 @@
 @use "sass:map";
 @use "sass:math";
 @use "sass:list";
-@use "styles/golden-ratio" as au;
+@use "styles/golden-ratio" as *;
 
-// ----COLORS----
+// ---- COLORS ----
 $color-primary: #1bd367;
 $color-secondary: #f12552;
 $color-tetriary: #2b71ed;
 $color-danger: #ff9b17;
-$color-white: #fff;
+$color-white: #ffffff;
 $color-light-gray: #f6f6f6;
 $color-dark-gray: #aaaaaa;
 $color-dark: #0F1031;
@@ -22,7 +22,7 @@ $size-list: (
   "xxl"
 );
 
-// ----BREAKPOINTS----
+// ---- BREAKPOINTS ----
 $breakpoints: (
   "xs": "0px",
   "sm": "320px",
@@ -32,7 +32,7 @@ $breakpoints: (
   "xxl": "1801px",
 );
 
-// --------GRIDS--------
+// ------ GRIDS ------
 $global-column-ratios: (
   "xs": (4, 0, 4),
   "sm": (4, 0, 4),
@@ -46,8 +46,7 @@ $with-top-nav: "navbar navbar navbar" "l-margin main r-margin";
 $single-track: "navbar main r-margin";
 $double-track: "navbar main main r-margin";
 // CONSIDER ROWS
-//CONSIDER MAIN
-
+// CONSIDER MAIN
 
 $global-grid-areas: (
   "xs": $with-top-nav,
@@ -58,10 +57,10 @@ $global-grid-areas: (
   "xxl": $double-track,
 );
 
-// ------ SIZING ------
+// ----- SIZING -----
 $base-rem: 16px;
 
-$size-au-modules: (
+$sizing: (
   0: 0.25rem,
   1: 0.5rem,
   2: 0.75rem,
@@ -74,12 +73,7 @@ $size-au-modules: (
   9: 22.25rem,
 );
 
-
-$font-weights: (
-  "thin": 300,
-  "regular": 500,
-  "bold": 800
-);
+$page-top-offset: goldSize(100vh, 6);
 
 // ----Z-DEPTH----
 $z-depth: (
@@ -89,7 +83,12 @@ $z-depth: (
   "pop-up": 20,
 );
 
-// ------ SIZING ------
+// ------ TYPOGRAPHY ------
+$font-weights: (
+  "thin": 300,
+  "regular": 500,
+  "bold": 800
+);
 
 $global-typography: (
   "h1": (5, "bold"),
@@ -100,5 +99,7 @@ $global-typography: (
 $typography: (
   "titleLink": (5, "bold"),
   "caption": (3, "regular"),
+  "sectionHeadline": (3, "regular"),
   "localeSwitch": (2, "thin"),
+  "button": (2, "bold")
 );

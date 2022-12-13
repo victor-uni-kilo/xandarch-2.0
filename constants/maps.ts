@@ -35,7 +35,7 @@ export const DASHBOARD_LINKS: IDashboardPagesMap[] = [
   },
   {
     href: "/dashboard/uploads",
-    text: "Uploads",
+    text: "Image Uploads",
   },
   {
     href: "/dashboard/categories",

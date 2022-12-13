@@ -11,6 +11,7 @@
 
 
 .heroContainer {
+  position: relative;
   width: 50%;
   height: 35vh;
   background-color: pink;
@@ -31,8 +32,8 @@
 .titleLink,
 .mainText {
   width: goldSize(100%, 1);
-  padding-left: map.get($size-au-modules, 4);
-  padding-right: map.get($size-au-modules, 5);
+  padding-left: map.get($sizing, 4);
+  padding-right: map.get($sizing, 5);
 }
 
 .titleLink {

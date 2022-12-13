@@ -12,7 +12,7 @@
 @mixin typography($elementProps) {
   $size-index: list.nth($elementProps, 1);
   $weight-index: list.nth($elementProps, 2);
-  $size-base: map.get($size-au-modules, $size-index);
+  $size-base: map.get($sizing, $size-index);
   font-size: $size-base;
   line-height: $size-base * 1;
   letter-spacing: $size-base * -0.02;

@@ -1,8 +1,10 @@
 import { ProjectionElementType, Types } from "mongoose";
 import { Dispatch, SetStateAction } from "react";
 
+// MongoseId Alias
 export type MongooseObjectId = Types.ObjectId;
 
+// Project Constants
 export enum SITE_AREA {
   presentation = "presentation",
   cms = "cms",
@@ -10,10 +12,12 @@ export enum SITE_AREA {
 
 export type siteAreaEnum = `${SITE_AREA}`;
 
-export interface IBilingualObject {
-  en: string;
-  sr: string;
+export enum LOCALE {
+  en = "en",
+  sr = "sr",
 }
+
+export type localeEnum = `${LOCALE}`;
 
 export interface IPagesMap {
   text: IBilingualObject;
@@ -25,12 +29,10 @@ export interface IDashboardPagesMap {
   href: string;
 }
 
-export enum LOCALE {
-  en = "en",
-  sr = "sr",
+export interface IBilingualObject {
+  en: string;
+  sr: string;
 }
-
-export type localeEnum = `${LOCALE}`;
 
 export enum MYME_TYPE {
   jpeg = "image/jpeg", // | "image/jpg"?
@@ -108,7 +110,6 @@ export interface ICategories {
   [CATEGORY_TYPE.byStatus]: ICategory[];
 }
 //////////////////////////////////////////////
-//???????????????????????????????????????????
 export interface IFsFilesData {
   _id: MongooseObjectId;
   length: number;

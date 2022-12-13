@@ -18,8 +18,15 @@ body {
 //// GLOBAL FONTS ////
 h1 {
   @include typography(map.get($global-typography, "h1"));
+  // margin-bottom: map.get($sizing, 3);
 }
+
+
 
 li {
   @include typography(map.get($global-typography, "li"));
+}
+
+.sectionHeadline {
+  @include typography(map.get($typography, "sectionHeadline"));
 }

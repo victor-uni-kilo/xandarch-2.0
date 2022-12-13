@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
 
-    $length: map.get($size-au-modules, 4);
+    $length: map.get($sizing, 4);
     width: $length;
     height: $length;
     border-radius: 50%;

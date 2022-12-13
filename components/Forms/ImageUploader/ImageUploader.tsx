@@ -1,13 +1,19 @@
-import ImageManager from "@components/ImageManager";
+import BasicButton from "@components/Button/BasicButton/BasicButton";
+import { BASIC_BUTTON_VARIANT, BUTTON_TYPE } from "@components/Button/types";
+import ImageList from "@components/ImageList/ImageList";
 import { server } from "@utils/db/apiConfig";
 import { fsFilesFetcher } from "@utils/fetchers";
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, MouseEvent, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { IFileUploadMap, IFsFilesData } from "types";
+
+import styles from "./ImageUploader.module.scss";
 
 const ImageUploader: FC = () => {
   const [selectedImagesData, setSelectedImagesData] = useState<IFileUploadMap[]>([]);
   const [formDataState, setFormDataState] = useState<FormData>(new FormData());
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const enableChange = (event: any) => {
     event.target.value = null;
@@ -62,30 +68,55 @@ const ImageUploader: FC = () => {
 
   return (
     <>
-      <h2>Add Images</h2>
       <form
         acceptCharset="UTF-8"
         method="POST"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
       >
-        <div>
+        <div className={styles.fileInput}>
           <label htmlFor="images">Upload Images: </label>
           <input
             type="file"
             name="images"
             multiple
-            accept="image/png image/jpeg image/gif image/webp"
+            accept="image/*"
             onChange={handleChooseFile}
             onClick={enableChange}
+            ref={fileInputRef}
           />
         </div>
-        <button onClick={handleClearUpload}>Clear</button>
-        <input type="submit" value="Submit" />
-      </form>
 
-      <h2>Preview Images</h2>
-      <ImageManager urls={selectedImagesData} imageCallback={handleCancelImageUpload} />
+        <div className={styles.buttonGroup}>
+          <BasicButton
+            type={BUTTON_TYPE.button}
+            variant={BASIC_BUTTON_VARIANT.contained}
+            onClick={() => {
+              fileInputRef.current && fileInputRef.current.click();
+            }}
+          >
+            <span>Select Images</span>
+          </BasicButton>
+
+          <BasicButton
+            type={BUTTON_TYPE.button}
+            variant={BASIC_BUTTON_VARIANT.outlined}
+            onClick={handleClearUpload}
+          >
+            <span>Clear</span>
+          </BasicButton>
+
+          <BasicButton type={BUTTON_TYPE.submit} variant={BASIC_BUTTON_VARIANT.contained}>
+            <span>Upload</span>
+          </BasicButton>
+        </div>
+
+        <ImageList
+          type="upload"
+          urls={selectedImagesData}
+          imageCallback={handleCancelImageUpload}
+        />
+      </form>
     </>
   );
 };

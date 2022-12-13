@@ -1,0 +1,17 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use "sass:map";
+
+.dividerWrapper {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-dark;
+  margin: map.get($sizing, 1) 0;
+}
+
+.box {
+  width: map.get($sizing, 3);
+  height: 6px;
+  margin: map.get($sizing, 1) 0;
+  background-color: $color-dark;
+}

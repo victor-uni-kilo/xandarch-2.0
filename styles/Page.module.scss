@@ -5,11 +5,8 @@
   height: 6000px;
 }
 ///////////////////////////
-// .pageWrapper {
-//   background-color: #dddddd34;
-// }
-
-
-.projectContainer {
-  background-color: aqua;
+.pageWrapper {
+  position: relative;
+  top: $page-top-offset;
+  padding: 0 map.get($sizing, 2);
 }

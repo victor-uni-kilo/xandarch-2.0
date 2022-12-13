@@ -15,7 +15,9 @@ import styles from "@styles/Page.module.scss";
 import { server } from "@utils/db/apiConfig";
 import { fetchFsFiles, fsFilesFetcher } from "@utils/fetchers";
 import { setFsFiles } from "store/fsFilesSlice";
-import ImageManager from "@components/ImageManager";
+import ImageList from "@components/ImageList/ImageList";
+import HeadlineDivider from "@components/Divider/HeadlineDivider/HeadlineDivider";
+import Typography from "@components/Typography";
 
 interface IUploadPageProps {
   fsFilesSSP: IFsFilesData[];
@@ -42,8 +44,12 @@ const Uploads: NextPage<IUploadPageProps> = ({ fsFilesSSP }) => {
   // 3.cache
   if (data) {
     console.log("fuu", data);
-
-    dbImagePaths = data.map(file => `/api/db/images/${file._id.toString()}`);
+    // TODO Make Sort function which takes any array and sort chronologicaly (latest, oldest)
+    const sortedImagePaths = data.sort(
+      (a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime(),
+    );
+    console.log("sortedImages", sortedImagePaths);
+    dbImagePaths = sortedImagePaths.map(file => `/api/db/images/${file._id.toString()}`);
   }
 
   console.log("Uploads:dbImagePath", dbImagePaths);
@@ -56,15 +62,17 @@ const Uploads: NextPage<IUploadPageProps> = ({ fsFilesSSP }) => {
 
   return (
     <div className={styles.pageWrapper}>
-      <h1 className={styles.color}>Hello from Uploads:</h1>
+      <h1>IMAGE UPLOADS</h1>
       <section>
-        <h2>Add Images</h2>
+        <HeadlineDivider />
+        <Typography elementTag="h2">UPLOAD IMAGES</Typography>
         <ImageUploader />
       </section>
 
       <section>
-        <h2>Images in Storage:</h2>
-        <ImageManager urls={dbImagePaths} />
+        <HeadlineDivider></HeadlineDivider>
+        <Typography elementTag="h2">IMAGES IN STORAGE</Typography>
+        <ImageList type="display" urls={dbImagePaths} />
       </section>
     </div>
   );

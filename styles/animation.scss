@@ -1,0 +1,12 @@
+@use 'styles/variables' as *;
+
+@keyframes shadow-drop-2-left {
+    0% {
+        transform: translateZ(0) translateX(0);
+        box-shadow: 0 0 0 0 $color-dark;
+    }
+    100% {
+        transform: translateZ(2rem) translateX(1rem);
+        box-shadow: -12px 0 20px -12px $color-dark;
+    }
+}

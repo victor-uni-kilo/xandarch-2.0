@@ -22,7 +22,9 @@ addImageHandler.post(async (req: any, res: any) => {
   try {
     Object.keys(files).forEach(key => {
       fs.createReadStream(files[key].filepath)
-        .pipe(bucket.openUploadStream(files[key].originalFilename))
+        .pipe(
+          bucket.openUploadStream(files[key].originalFilename, { metadata: { alt: "Vuk Kralj" } }),
+        )
         .on("error", function (error) {
           console.log("onError");
           res.status(500).send(error);

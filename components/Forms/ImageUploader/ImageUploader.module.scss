@@ -1,0 +1,12 @@
+@use 'styles/variables' as *;
+@use "sass:map";
+
+.fileInput {
+  visibility: hidden;
+}
+
+.buttonGroup {
+  display: flex;
+  width: 50%;
+  gap: map.get($sizing, 1)
+}

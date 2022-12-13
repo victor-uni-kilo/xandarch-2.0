@@ -17,11 +17,11 @@
   width: 100%;
   height: 25vh;
   // border: 1px solid $color-dark-gray;
-  background-image: url("../public/patterns/diagonal-hatch.svg");
+  background-image: url("../../public/patterns/diagonal-hatch.svg");
   overflow: hidden;
 
 
-  &>img {
+  .imageItem {
     width: 100%;
     height: 100%;
     object-fit: contain;

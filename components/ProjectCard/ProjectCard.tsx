@@ -1,10 +1,14 @@
 import { FC } from "react";
 import Link from "next/link";
-import { IBilingualObject, ICategory, IProject } from "types";
+import { IBilingualObject, ICategory, IFsFilesData, IProject } from "types";
 import { selectPage } from "store/pageSlice";
 import { useSelector } from "react-redux";
 
 import styles from "./ProjectCard.module.scss";
+import { server } from "@utils/db/apiConfig";
+import { fsFilesFetcher } from "@utils/fetchers";
+import useSWR from "swr";
+import Image from "next/image";
 
 interface IProjectCardProps {
   project: IProject;
@@ -15,10 +19,27 @@ const ProjectCard: FC<IProjectCardProps> = ({ project }) => {
   const key = pageData.localeKey as keyof IBilingualObject;
   // @TODO Fix Types
   const categories = project.categories as unknown as ICategory[];
+  // @TODO Display only project.hero
+  const { data, isValidating, error } = useSWR<IFsFilesData[]>(
+    `${server}/api/db/images`,
+    fsFilesFetcher,
+  );
 
+  let dbImagePaths: string[] = [];
+
+  if (data) {
+    console.log("fuu", data);
+
+    dbImagePaths = data.map(file => `/api/db/images/${file._id.toString()}`);
+  }
   return (
     <div className={styles.card}>
-      <div className={styles.heroContainer}>...</div>
+      <div className={styles.heroContainer}>
+        {dbImagePaths &&
+          dbImagePaths.map((url, index) => {
+            return <Image key={`project-image-${index}`} src={url} layout="fill" />;
+          })}
+      </div>
 
       <div className={styles.textContainer}>
         <div>

@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { server } from "@utils/db/apiConfig";
 import { useContext, useEffect } from "react";
-import { PageLayoutContext } from "@components/Layout/Layout";
 
 import styles from "@styles/Page.module.scss";
 import { wrapper } from "store";
