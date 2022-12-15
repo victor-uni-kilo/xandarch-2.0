@@ -1,4 +1,5 @@
 import BasicButton from "@components/Button/BasicButton/BasicButton";
+import DropFileButton from "@components/Button/DropFileButton/DropFileButton";
 import { BASIC_BUTTON_VARIANT, BUTTON_TYPE } from "@components/Button/types";
 import ImageList from "@components/ImageList/ImageList";
 import { server } from "@utils/db/apiConfig";
@@ -15,17 +16,14 @@ const ImageUploader: FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const enableChange = (event: any) => {
-    event.target.value = null;
-  };
-
-  const handleChooseFile = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = event.target.files;
+  const handleChooseFile = (event: ChangeEvent<HTMLInputElement>, files: any) => {
+    const selectedFiles = files;
+    console.log("selectedFiles", selectedFiles);
     const formData = formDataState;
     let fileMapsArray: IFileUploadMap[];
 
     if (selectedFiles) {
-      fileMapsArray = Array.from(selectedFiles).map(file => {
+      fileMapsArray = Array.from(selectedFiles).map((file: any) => {
         const formDataId = "id" + Math.random().toString(16).slice(2);
         const localUrl = URL.createObjectURL(file);
         formData.append(formDataId, file);
@@ -74,30 +72,7 @@ const ImageUploader: FC = () => {
         encType="multipart/form-data"
         onSubmit={handleSubmit}
       >
-        <div className={styles.fileInput}>
-          <label htmlFor="images">Upload Images: </label>
-          <input
-            type="file"
-            name="images"
-            multiple
-            accept="image/*"
-            onChange={handleChooseFile}
-            onClick={enableChange}
-            ref={fileInputRef}
-          />
-        </div>
-
         <div className={styles.buttonGroup}>
-          <BasicButton
-            type={BUTTON_TYPE.button}
-            variant={BASIC_BUTTON_VARIANT.contained}
-            onClick={() => {
-              fileInputRef.current && fileInputRef.current.click();
-            }}
-          >
-            <span>Select Images</span>
-          </BasicButton>
-
           <BasicButton
             type={BUTTON_TYPE.button}
             variant={BASIC_BUTTON_VARIANT.outlined}
@@ -110,12 +85,14 @@ const ImageUploader: FC = () => {
             <span>Upload</span>
           </BasicButton>
         </div>
-
-        <ImageList
-          type="upload"
-          urls={selectedImagesData}
-          imageCallback={handleCancelImageUpload}
-        />
+        <div className={styles.imagePreview}>
+          <DropFileButton handleChooseFile={handleChooseFile} />
+          <ImageList
+            type="upload"
+            urls={selectedImagesData}
+            imageCallback={handleCancelImageUpload}
+          />
+        </div>
       </form>
     </>
   );
